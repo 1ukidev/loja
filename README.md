@@ -1,2 +1,2 @@
-# loja
-Projeto Web/Software da minha equipe
+# Loja
+Projeto Web/Software da minha equipe.
