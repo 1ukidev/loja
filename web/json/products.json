@@ -26,5 +26,12 @@
         "name": "Roupa",
         "img": "https://png.pngtree.com/png-clipart/20230106/ourmid/pngtree-pink-baby-jumpers-png-image_6553894.png",
         "price": 25
+    },
+    {
+        "id": 4,
+        "type": "Saúde",
+        "name": "Umidificador",
+        "img": "https://iamobrasil.com/wp-content/uploads/2021/03/YS43088A_F_FUMACA.png",
+        "price": 200
     }
 ]

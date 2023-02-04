@@ -11,13 +11,13 @@
 
 <body class="default-body">
     <nav class="default-navbar sans-font">
-        <a class="navbar-title" id="title" href="/proxy/5156/">Presente da Cegonha</a>
-        <a class="navbar-text" id="brinquedos" href="brinquedos.html">Brinquedos</a>
-        <a class="navbar-text" id="roupas" href="roupas.html">Roupas</a>
-        <a class="navbar-text" id="enxoval" href="enxoval.html">Enxoval</a>
-        <a class="navbar-text" id="higiene" href="higiene.html">Higiene</a>
-        <a class="navbar-text" id="saude" href="saude.html">Saúde</a>
-        <a class="navbar-title" id="carrinho" href="">Carrinho</a>
+        <a class="navbar-title" id="title" href="/">Presente da Cegonha /</a>
+        <a class="navbar-text" id="brinquedos" href="#brinquedos">Brinquedos</a>
+        <a class="navbar-text" id="roupas" href="#roupas">Roupas</a>
+        <a class="navbar-text" id="enxoval" href="#enxoval">Enxoval</a>
+        <a class="navbar-text" id="higiene" href="#higiene">Higiene</a>
+        <a class="navbar-text" id="saude" href="#saude">Saúde</a>
+        <a class="navbar-title" id="carrinho" href="#carrinho">/ Carrinho</a>
     </nav>
 
     <div id="main" class="default-main sans-font"></div>
@@ -30,7 +30,7 @@
 
                 for (let i = 0; i < data.length; i++) {
                     let product = data[i];
-                    productHtml += '<a class="product">'
+                    productHtml += '<a class="product" href="#">'
                     productHtml += '<img height="75" src="' + product.img + '"</p>';
                     productHtml += '<p class="product-title">' + product.name + '</p>';
                     productHtml += '<p class="product-price">R$' + product.price + '</p>';
@@ -43,6 +43,9 @@
                 document.getElementById('main').innerHTML = 'Erro ao carregar os dados dos produtos';
             });
     </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
