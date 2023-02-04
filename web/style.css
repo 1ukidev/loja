@@ -1,32 +1,136 @@
-* {
+/* Made by 1ukidev aka Leozinho */
+
+/* Colors */
+
+:root {
+    --navbar: #FF8B94;
+    --navbar-font: #ffffff;
+    --product: #FF8B94;
+    --product-font: #fff5f5;
+    --body: #fffbfb;
+    --separator: #ffffff;
+}
+
+/* Body */
+
+.default-body {
+    background-color: var(--body);
+}
+
+/* Fonts */
+
+.sans-font {
     font-family: 'Segoe UI', Helvetica, sans-serif;
 }
 
-.navbar-brand {
-    font-size: 2rem;
+.serif-font {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Navbar */
+
+.default-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar);
+    height: 50px;
+    padding: 10px;
+    border-radius: 20px;
     font-weight: 600;
-    float: none;
-    color: #FFFFFF;
-    transition: .3s;
+    margin: 30px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.188), 0px 6px 6px rgba(0, 0, 0, 0.231);
 }
 
-.navbar-brand:hover {
-    color: #81fff4;
+.navbar-title {
+    font-size: 24px;
+    color: var(--navbar-font);
+    text-decoration: none;
+    margin: 0 10px;
+    max-width: 250px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.navbar-header {
-    float: left;
-    padding: 15px;
-    text-align: center;
-    width: 100%;
+.navbar-text {
+    font-size: 20px;
+    color: var(--navbar-font);
+    text-decoration: none;
+    margin: 0 10px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.navbar {
-    padding-top: 0;
-    padding-bottom: 0;
+@media (max-width: 768px) {
+    .default-navbar {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .navbar-title {
+        font-size: 24px;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .navbar-text {
+        font-size: 20px;
+        text-align: center;
+        margin: 10px 0;
+    }
 }
 
-.jumbotron-heading {
-    font-size: 3rem;
+/* Main */
+
+.default-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Products */
+
+.product {
+    width: 200px;
+    height: 200px;
+    background-color: var(--product);
+    color: var(--product-font);
+    margin: 30px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px #00000030, 0px 6px 6px #0000003b;
+}
+
+.product-title {
+    margin: 0;
+    padding-top: 15px;
+    font-size: 1.1rem;
     font-weight: 600;
+}
+
+.product-price {
+    margin: 0;
+    padding-top: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.product img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Others */
+
+.separator {
+    color: var(--separator);
 }
