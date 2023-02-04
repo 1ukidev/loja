@@ -51,6 +51,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-shadow: 0 0 2px black;
 }
 
 .navbar-text {
@@ -62,6 +63,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-shadow: 0 0 2px black;
 }
 
 @media (max-width: 768px) {
@@ -114,6 +116,7 @@
     padding-top: 15px;
     font-size: 1.1rem;
     font-weight: 600;
+    text-shadow: 0 0 2px black;
 }
 
 .product-price {
@@ -121,6 +124,7 @@
     padding-top: 15px;
     font-size: 1.3rem;
     font-weight: 600;
+    text-shadow: 0 0 2px black;
 }
 
 .product img {
