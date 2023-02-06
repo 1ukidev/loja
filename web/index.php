@@ -11,7 +11,7 @@
 
 <body class="default-body">
     <nav class="default-navbar sans-font">
-        <a class="navbar-title" id="title" href="/">Presente da Cegonha</a>
+        <a class="navbar-title" id="title" href="#">Presente da Cegonha</a>
         <a class="navbar-text" id="brinquedos" href="#brinquedos">Brinquedos</a>
         <a class="navbar-text" id="roupas" href="#roupas">Roupas</a>
         <a class="navbar-text" id="enxoval" href="#enxoval">Enxoval</a>
@@ -34,6 +34,7 @@
                     productHtml += '<img height="75" src="' + product.img + '"</p>';
                     productHtml += '<p class="product-title">' + product.name + '</p>';
                     productHtml += '<p class="product-price">R$' + product.price + '</p>';
+                    productHtml += '<p><button id="button' + i.toString() + '" class="buy-button">Comprar</button></p>'
                     productHtml += '</a>';
                 }
 

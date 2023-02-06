@@ -136,10 +136,7 @@
 /* Buttons */
 
 .buy-button {
-    background-color: var(--product);
-    color: white;
-    border-color: white;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 /* Others */

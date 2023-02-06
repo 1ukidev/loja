@@ -18,11 +18,26 @@ $(document).ready(function () {
     $("#saude").click(function () {
         $("#main").load("php/saude.php");
     });
-});
 
-document.getElementById('main').addEventListener('click', function(event) {
-    if (event.target.classList.contains('product')) {
-        event.preventDefault();
-        alert("Adicionado ao carrinho!");
-    }
+    $("#carrinho").click(function () {
+        $("#main").load("php/carrinho.php");
+    });
+
+    // $.getJSON('json/products.json', function(jd) {
+    //     for(let i = 0; i < jd.length; i++) {
+    //         let button = "#button" + jd.toString();
+
+    //         $(button).click(function () {
+    //             alert("Adicionado ao carrinho!");
+    //         });
+    //     }
+    // });
+
+    // for(let i = 0; i < product.length; i++) {
+    //     let button = "#button" + i.toString();
+
+    //     $(button).click(function () {
+    //         alert("Adicionado ao carrinho!");
+    //     });
+    // }
 });
