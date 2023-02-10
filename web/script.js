@@ -20,24 +20,18 @@ $(document).ready(function () {
     });
 
     $("#carrinho").click(function () {
-        $("#main").load("php/carrinho.php");
+        $("#main").load("carrinho.php");
     });
 
-    // $.getJSON('json/products.json', function(jd) {
-    //     for(let i = 0; i < jd.length; i++) {
-    //         let button = "#button" + jd.toString();
+    $.getJSON('json/products.json', function(products) {
+        for(let i = 0; i < products.length; i++) {
+            let button = "#button" + i.toString();
+            let button2 = "button" + i.toString();
 
-    //         $(button).click(function () {
-    //             alert("Adicionado ao carrinho!");
-    //         });
-    //     }
-    // });
-
-    // for(let i = 0; i < product.length; i++) {
-    //     let button = "#button" + i.toString();
-
-    //     $(button).click(function () {
-    //         alert("Adicionado ao carrinho!");
-    //     });
-    // }
+            $(button).click(function () {
+                alert("Adicionado ao carrinho! (" + button + ")");
+                $("#main").load("carrinho.php", {"id": button2});
+            });
+        }
+    });    
 });
