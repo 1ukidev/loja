@@ -2,6 +2,7 @@
 
 // Main
 const main = document.getElementById("main");
+const text = document.getElementById("text");
 let products;
 
 const loadProducts = () => {
@@ -18,14 +19,20 @@ const loadProducts = () => {
 
 const displayProducts = (category = null) => {
     main.innerHTML = "";
+    
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     const filteredProducts = category ? products.filter(product => product.category === category) : products;
 
     filteredProducts.forEach(product => {
         const productCard = document.createElement("div");
         productCard.setAttribute("product-id", product.id);
 
+        if(category == null) {
+            text.innerHTML = `<h1>Principais produtos:</h1>`;
+        } else {
+            text.innerHTML = `<h1>Principais produtos em ${product.category}:</h1>`;
+        }
+        
         productCard.innerHTML = `
             <img src="${product.img}" alt="${product.name}">
             <h3>${product.name}</h3>
@@ -34,7 +41,8 @@ const displayProducts = (category = null) => {
 
         productCard.addEventListener("click", function() {
             cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart))
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alertify.success("Adicionado com sucesso ao carrinho!");
             displayCart(cart);
         });
 
@@ -51,27 +59,43 @@ loadProducts();
 
 const displayCart = (cart) => {
     main.innerHTML = "";
+    text.innerHTML = "<h1>Carrinho:</h1>";
 
-    cart.forEach(product => {
+    if(cart.length == 0) {
         const productCard = document.createElement("div");
-        alertify.alert("Adicionado com sucesso ao carrinho!");
-        
+        productCard.style.cursor = "auto";
+        productCard.style.userSelect = "text";
+
         productCard.innerHTML = `
-            <img src="${product.img}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>${product.price}</p>
+            <h3>O carrinho está vazio</h3>
         `;
 
         main.appendChild(productCard);
-    });
+    } else {
+        cart.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.style.cursor = "auto";
+            productCard.style.userSelect = "text";
+
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.price}</p>
+            `;
+    
+            main.appendChild(productCard);
+        });
+    }    
 }
 
 const displayLogin = () => {
     main.innerHTML = "";
-    const container = document.createElement("div");
+    text.innerHTML = "";
+    
+    const loginForm = document.createElement("div");
 
-    container.innerHTML = `
-        <form>
+    loginForm.innerHTML = `
+        <form id="loginForm" method="post">
             <h3>E-mail:</h3>
             <input id="email" type="email" required>
             <h3>Senha:</h3>
@@ -81,19 +105,27 @@ const displayLogin = () => {
         </form>
     `;
 
-    main.appendChild(container);
+    main.appendChild(loginForm);
 }
 
 // Others
 const enableDarkMode = () => {
     const body = document.body;
 
-    if (body.classList.contains("light-mode")) {
+    if(body.classList.contains("light-mode")) {
         body.classList.remove("light-mode");
         body.classList.add("dark-mode");
     } else {
         body.classList.remove("dark-mode");
         body.classList.add("light-mode");
+    }
+
+    if(text.classList.contains("light-mode")) {
+        text.classList.remove("light-mode");
+        text.classList.add("dark-mode");
+    } else {
+        text.classList.remove("dark-mode");
+        text.classList.add("light-mode");
     }
 }
 
