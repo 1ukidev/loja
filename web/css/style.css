@@ -1,21 +1,7 @@
 /* Made by 1ukidev aka Leozinho */
 
 /* Colors */
-
-:root {
-    --navbar: #FF8B94;
-    --navbar-font: #ffffff;
-    --product: #FF8B94;
-    --product-font: #fff5f5;
-    --body: #fffbfb;
-    --separator: #ffffff;
-}
-
-/* Body */
-
-.default-body {
-    background-color: var(--body);
-}
+/* :root {} */
 
 /* Fonts */
 
@@ -29,118 +15,117 @@
 
 /* Navbar */
 
-.default-navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--navbar);
-    height: 50px;
-    padding: 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    margin: 30px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.188), 0px 6px 6px rgba(0, 0, 0, 0.231);
-}
-
-.navbar-title {
-    font-size: 24px;
-    color: var(--navbar-font);
-    text-decoration: none;
-    margin: 0 10px;
-    max-width: 250px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.navbar {
     overflow: hidden;
-    text-shadow: 0 0 2px black;
+    background-color: #333;
+    border-radius: 24px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.navbar-text {
-    font-size: 20px;
-    color: var(--navbar-font);
+.navbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
-    margin: 0 10px;
-    max-width: 200px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    text-shadow: 0 0 2px black;
+    font-size: 17px;
+    transition: .3s;
+    cursor: pointer;
+    user-select: none;
 }
 
-@media (max-width: 768px) {
-    .default-navbar {
-        flex-direction: column;
-        height: auto;
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar a.title {
+    background-color: #6dadc2;
+    color: white;
+}
+
+.navbar a.title:hover {
+    background-color: #538494;
+    color: white;
+}
+
+.navbar a.others {
+    background-color: #58bb9a;
+    color: white;
+}
+
+.navbar a.others:hover {
+    background-color: #3d866e;
+    color: white;
+}
+
+a[id="carrinho"] {
+    float: right;
+}
+
+a[id="login"] {
+    float: right;
+}
+
+a[id="dark-mode"] {
+    float: right;
+}
+
+@media screen and (max-width: 1000px) {
+    .navbar a {
+        float: none;
+        display: block;
+        text-align: left;
     }
 
-    .navbar-title {
-        font-size: 24px;
-        text-align: center;
-        margin: 10px 0;
+    a[id="carrinho"] {
+        float: none;
     }
 
-    .navbar-text {
-        font-size: 20px;
-        text-align: center;
-        margin: 10px 0;
+    a[id="login"] {
+        float: none;
     }
+
+    a[id="dark-mode"] {
+        float: none;
+    }
+}
+
+/* Dark mode */
+
+.dark-mode {
+    background-color: #141414;
+    transition: .3s;
+}
+
+.light-mode {
+    background-color: #fff;
+    transition: .3s;
 }
 
 /* Main */
 
-.default-main {
+#main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-/* Products */
-
-.product {
-    width: 200px;
-    height: 200px;
-    background-color: var(--product);
-    color: var(--product-font);
-    margin: 30px;
-    margin-top: 15px;
+#main > div {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    text-decoration: none;
-    border-radius: 20px;
-    box-shadow: 0px 10px 20px #00000030, 0px 6px 6px #0000003b;
+    align-items: center;
+    margin: 20px;
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.product-title {
-    margin: 0;
-    padding-top: 15px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-shadow: 0 0 2px black;
-}
-
-.product-price {
-    margin: 0;
-    padding-top: 15px;
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-shadow: 0 0 2px black;
-}
-
-.product img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* Buttons */
-
-.buy-button {
-    font-size: 0.9rem;
-}
-
-/* Others */
-
-.separator {
-    color: var(--separator);
+#main img {
+    height: 100px;
+    margin-bottom: 10px;
 }

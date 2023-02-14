@@ -1,37 +1,37 @@
 [
     {
         "id": 0,
-        "category": "Brinquedos",
+        "type": "Brinquedos",
         "name": "Pato de borracha",
         "img": "https://cdn.pixabay.com/photo/2018/08/01/09/28/rubber-3576854_1280.png",
-        "price": "R$5"
+        "price": 5
     },
     {
         "id": 1,
-        "category": "Enxoval",
+        "type": "Enxoval",
         "name": "Bebê",
         "img": "https://greenpng.com/wp-content/uploads/2021/03/publicdomainq-0053565cnbkll-919x1024.png",
-        "price": "R$500"
+        "price": 500
     },
     {
         "id": 2,
-        "category": "Higiene",
+        "type": "Higiene",
         "name": "Escova",
         "img": "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1faa5.png",
-        "price": "R$10"
+        "price": 10
     },
     {
         "id": 3,
-        "category": "Roupas",
+        "type": "Roupas",
         "name": "Roupa",
         "img": "https://png.pngtree.com/png-clipart/20230106/ourmid/pngtree-pink-baby-jumpers-png-image_6553894.png",
-        "price": "R$25"
+        "price": 25
     },
     {
         "id": 4,
-        "category": "Saúde",
+        "type": "Saúde",
         "name": "Umidificador",
         "img": "https://iamobrasil.com/wp-content/uploads/2021/03/YS43088A_F_FUMACA.png",
-        "price": "R$200"
+        "price": 200
     }
 ]
