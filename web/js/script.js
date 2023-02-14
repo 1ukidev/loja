@@ -50,20 +50,38 @@ const displayProducts = (category = null) => {
 loadProducts();
 
 const displayCart = (cart) => {
-    const cartContainer = document.getElementById("main");
-    cartContainer.innerHTML = "";
-    alert("Adicionado com sucesso ao carrinho!");
+    main.innerHTML = "";
 
     cart.forEach(product => {
         const productCard = document.createElement("div");
+        alertify.alert("Adicionado com sucesso ao carrinho!");
+        
         productCard.innerHTML = `
             <img src="${product.img}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>${product.price}</p>
         `;
 
-        cartContainer.appendChild(productCard);
+        main.appendChild(productCard);
     });
+}
+
+const displayLogin = () => {
+    main.innerHTML = "";
+    const container = document.createElement("div");
+
+    container.innerHTML = `
+        <form>
+            <h3>E-mail:</h3>
+            <input id="email" type="email" required>
+            <h3>Senha:</h3>
+            <input id="senha" type="password" required><br><br>
+            <input id="login" type="submit" value="Logar"><br><br>
+            <input id="cadastrar" type="button" value="Cadastrar">
+        </form>
+    `;
+
+    main.appendChild(container);
 }
 
 // Others
