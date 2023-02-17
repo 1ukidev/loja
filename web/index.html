@@ -5,24 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presente da Cegonha</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="https://cdn.pixabay.com/photo/2018/08/01/09/28/rubber-3576854_1280.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="dark-mode">
     <div class="navbar sans-font">
-        <a class="title" href="/proxy/5156/">Presente da Cegonha</a>
-        <a onclick="displayProducts('Brinquedos')">Brinquedos</a>
-        <a onclick="displayProducts('Roupas')">Roupas</a>
-        <a onclick="displayProducts('Enxoval')">Enxoval</a>
-        <a onclick="displayProducts('Higiene')">Higiene</a>
-        <a onclick="displayProducts('Saúde')">Saúde</a>
-        <a class="others" id="login" onclick="displayLogin()">Login</a>
-        <a class="others" id="carrinho">Carrinho</a>
-        <a class="others" id="dark-mode" onclick="enableDarkMode()">Modo escuro</a>
-        <a class="others" id="carrinho" onclick="limpar()">Limpar carrinho</a>
+        <a class="title" href="/loja/web"><i class="fa-solid fa-dragon fa-xl"></i> Presente da Cegonha</a>
+        <a onclick="displayProducts('Brinquedos')"><i class="fa-solid fa-puzzle-piece"></i> Brinquedos</a>
+        <a onclick="displayProducts('Roupas')"><i class="fa-solid fa-shirt"></i> Roupas</a>
+        <a onclick="displayProducts('Enxoval')"><i class="fa-solid fa-baby-carriage"></i> Enxoval</a>
+        <a onclick="displayProducts('Higiene')"><i class="fa-solid fa-soap"></i> Higiene</a>
+        <a onclick="displayProducts('Saúde')"><i class="fa-solid fa-briefcase-medical"></i> Saúde</a>
+        <a class="others" id="login" onclick="displayLogin()"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a class="others" id="carrinho"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
+        <a class="others" id="dark-mode" onclick="enableDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i> Modo escuro</a>
+        <a class="others" id="carrinho" onclick="limpar()"><i class="fa-solid fa-trash"></i> Limpar carrinho</a>
     </div>
 
     <div id="text" class="sans-font dark-mode">

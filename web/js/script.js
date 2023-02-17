@@ -19,7 +19,7 @@ const loadProducts = () => {
 
 const displayProducts = (category = null) => {
     main.innerHTML = "";
-    
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const filteredProducts = category ? products.filter(product => product.category === category) : products;
 
@@ -27,27 +27,32 @@ const displayProducts = (category = null) => {
         const productCard = document.createElement("div");
         productCard.setAttribute("product-id", product.id);
 
-        if(category == null) {
+        if (category == null) {
             text.innerHTML = `<h1>Principais produtos:</h1>`;
         } else {
             text.innerHTML = `<h1>Principais produtos em ${product.category}:</h1>`;
         }
-        
+
         productCard.innerHTML = `
             <img src="${product.img}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>${product.price}</p>
         `;
 
-        productCard.addEventListener("click", function() {
+        productCard.addEventListener("click", function () {
             cart.push(product);
             localStorage.setItem("cart", JSON.stringify(cart));
-            alertify.success("Adicionado com sucesso ao carrinho!");
-            displayCart(cart);
+            alertify.confirm("Deseja adicionar ao carrinho?", function (e) {
+                if(e) {
+                    displayCart(cart);
+                } else {
+                    console.error("Bruh");
+                }
+            }).set({title:""}).set({labels:{ok:'Sim', cancel: 'Não'}});
         });
 
         const carrinho = document.getElementById("carrinho");
-        carrinho.addEventListener("click", function() {
+        carrinho.addEventListener("click", function () {
             displayCart(cart);
         });
 
@@ -61,7 +66,7 @@ const displayCart = (cart) => {
     main.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
 
-    if(cart.length == 0) {
+    if (cart.length == 0) {
         const productCard = document.createElement("div");
         productCard.style.cursor = "auto";
         productCard.style.userSelect = "text";
@@ -82,16 +87,16 @@ const displayCart = (cart) => {
                 <h3>${product.name}</h3>
                 <p>${product.price}</p>
             `;
-    
+
             main.appendChild(productCard);
         });
-    }    
+    }
 }
 
 const displayLogin = () => {
     main.innerHTML = "";
     text.innerHTML = "";
-    
+
     const loginForm = document.createElement("div");
 
     loginForm.innerHTML = `
@@ -112,7 +117,7 @@ const displayLogin = () => {
 const enableDarkMode = () => {
     const body = document.body;
 
-    if(body.classList.contains("light-mode")) {
+    if (body.classList.contains("light-mode")) {
         body.classList.remove("light-mode");
         body.classList.add("dark-mode");
     } else {
@@ -120,7 +125,7 @@ const enableDarkMode = () => {
         body.classList.add("light-mode");
     }
 
-    if(text.classList.contains("light-mode")) {
+    if (text.classList.contains("light-mode")) {
         text.classList.remove("light-mode");
         text.classList.add("dark-mode");
     } else {
