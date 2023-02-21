@@ -5,7 +5,7 @@ const main = document.getElementById("main");
 const text = document.getElementById("text");
 let products;
 
-const loadProducts = () => {
+const loadProducts = async () => {
     fetch("json/products.json")
         .then(res => res.json())
         .then(data => {
@@ -17,7 +17,7 @@ const loadProducts = () => {
         });
 }
 
-const displayProducts = (category = null) => {
+const displayProducts = async (category = null) => {
     main.innerHTML = "";
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -40,15 +40,15 @@ const displayProducts = (category = null) => {
         `;
 
         productCard.addEventListener("click", function () {
-            cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart));
             alertify.confirm("Deseja adicionar ao carrinho?", function (e) {
                 if(e) {
+                    cart.push(product);
+                    localStorage.setItem("cart", JSON.stringify(cart));
                     displayCart(cart);
-                } else {
-                    console.error("Bruh");
                 }
-            }).set({title:""}).set({labels:{ok:'Sim', cancel: 'Não'}});
+            }).set({title:"ㅤ"})
+              .set({labels: {ok: "Sim", cancel: "Não"}})
+              .setting("modal", false)
         });
 
         const carrinho = document.getElementById("carrinho");
@@ -62,7 +62,7 @@ const displayProducts = (category = null) => {
 
 loadProducts();
 
-const displayCart = (cart) => {
+const displayCart = async (cart) => {
     main.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
 
@@ -93,11 +93,13 @@ const displayCart = (cart) => {
     }
 }
 
-const displayLogin = () => {
+const displayLogin = async () => {
     main.innerHTML = "";
     text.innerHTML = "";
 
     const loginForm = document.createElement("div");
+    loginForm.style.cursor = "auto";
+    loginForm.style.userSelect = "text";
 
     loginForm.innerHTML = `
         <form id="loginForm" method="post">
@@ -114,7 +116,7 @@ const displayLogin = () => {
 }
 
 // Others
-const enableDarkMode = () => {
+const enableDarkMode = async () => {
     const body = document.body;
 
     if (body.classList.contains("light-mode")) {
@@ -134,6 +136,6 @@ const enableDarkMode = () => {
     }
 }
 
-const limpar = () => {
+const limpar = async () => {
     localStorage.clear();
 }
