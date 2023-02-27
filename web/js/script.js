@@ -102,17 +102,24 @@ const displayLogin = async () => {
     loginForm.style.userSelect = "text";
 
     loginForm.innerHTML = `
-        <form id="loginForm" method="post">
-            <h3>E-mail:</h3>
-            <input id="email" type="email" required>
-            <h3>Senha:</h3>
-            <input id="senha" type="password" required><br><br>
-            <input id="login" type="submit" value="Logar"><br><br>
-            <input id="cadastrar" type="button" value="Cadastrar">
+        <form action="javascript:enviarLogin();" method="post">
+            <input type="submit" id="login" value="Login"><br><br>
+        </form>
+
+        <form action="javascript:enviarCadastro();" method="post">
+            <input type="submit" id="cadastro" value="Cadastrar">
         </form>
     `;
 
     main.appendChild(loginForm);
+}
+
+const enviarLogin = async () => {
+    alert("Login enviado com sucesso!");
+}
+
+const enviarCadastro = async () => {
+    alert("Cadastro enviado com sucesso!");
 }
 
 // Others

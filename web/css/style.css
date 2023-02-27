@@ -140,3 +140,9 @@ a[id="dark-mode"] {
     text-align: center;
     margin-top: 50px;
 }
+
+/* Alertify */
+
+.alertify {
+    font-family: 'Segoe UI', Helvetica, sans-serif;
+}
