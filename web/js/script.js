@@ -45,6 +45,7 @@ const displayProducts = async (category = null) => {
                     cart.push(product);
                     localStorage.setItem("cart", JSON.stringify(cart));
                     displayCart(cart);
+                    alertify.success("Adicionado com sucesso!");
                 }
             }).set({title:"ㅤ"})
               .set({labels: {ok: "Sim", cancel: "Não"}})
@@ -102,24 +103,84 @@ const displayLogin = async () => {
     loginForm.style.userSelect = "text";
 
     loginForm.innerHTML = `
-        <form action="javascript:enviarLogin();" method="post">
-            <input type="submit" id="login" value="Login"><br><br>
-        </form>
-
-        <form action="javascript:enviarCadastro();" method="post">
-            <input type="submit" id="cadastro" value="Cadastrar">
+        <form action="javascript:loadLogin()" method="post">
+            <label>E-mail:</label>
+            <input type="email" id="email" required><br><br>
+            <label>Senha:</label>
+            <input type="password" id="password" required><br><br>
+            <input type="submit" id="login" value="Entrar"><br><br>
+            <input type="button" id="cadastro" value="Fazer cadastro" onclick="displayLogup()">
         </form>
     `;
 
     main.appendChild(loginForm);
 }
 
-const enviarLogin = async () => {
-    alert("Login enviado com sucesso!");
+const displayLogup = async () => {
+    main.innerHTML = "";
+    text.innerHTML = "";
+
+    const logupForm = document.createElement("div");
+    logupForm.style.cursor = "auto";
+    logupForm.style.userSelect = "text";
+
+    logupForm.innerHTML = `
+        <form action="javascript:loadLogup()" method="post">
+            <label>Nome:</label>
+            <input type="text" id="name" requred><br><br>
+            <label>E-mail:</label>
+            <input type="email" id="email" required><br><br>
+            <label>Senha:</label>
+            <input type="password" id="password" required><br><br>
+            <input type="submit" id="cadastro" value="Cadastrar">
+        </form>
+    `;
+
+    main.appendChild(logupForm);
 }
 
-const enviarCadastro = async () => {
-    alert("Cadastro enviado com sucesso!");
+const loadLogin = async () => {
+    const email = $("#email").val();
+    const password = $("#password").val();
+
+    $.ajax({
+        type: "POST",
+        url: "php/login.php",
+        data: {
+            email: email,
+            password: password
+        },
+        success: function(data) {
+            alertify.success("Logado com sucesso!");
+            loadProducts();
+        },
+        error: function(request, status, error) {
+            console.error(request, status, error);
+        }
+    });
+}
+
+const loadLogup = async () => {
+    const nome = $("#nome").val();
+    const email = $("#email").val();
+    const password = $("#password").val();
+
+    $.ajax({
+        type: "POST",
+        url: "php/cadastro.php",
+        data: {
+            nome: nome,
+            email: email,
+            password: password
+        },
+        success: function(data) {
+            alertify.success("Cadastrado com sucesso!");
+            loadProducts();
+        },
+        error: function(request, status, error) {
+            console.error(request, status, error);
+        }
+    });
 }
 
 // Others
