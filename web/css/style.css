@@ -1,8 +1,5 @@
 /* Made by 1ukidev aka Leozinho */
 
-/* Colors */
-/* :root {} */
-
 /* Fonts */
 
 .sans-font {
@@ -71,7 +68,7 @@ a[id="dark-mode"] {
     float: right;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1375px) {
     .navbar a {
         float: none;
         display: block;
@@ -141,8 +138,61 @@ a[id="dark-mode"] {
     margin-top: 50px;
 }
 
+/* Others */
+
+#others {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Inputs */
+
+.buyButton {
+    margin-top: 25px;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+    background-color: #333;
+    color: white;
+}
+
+.loginButtons {
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+    background-color: #333;
+    color: white;
+}
+
+.logupButtons {
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+    background-color: #333;
+    color: white;
+}
+
+.loginTexts {
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.logupTexts {
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
 /* Alertify */
 
 .alertify {
+    font-family: 'Segoe UI', Helvetica, sans-serif;
+}
+
+.alertify-notifier {
     font-family: 'Segoe UI', Helvetica, sans-serif;
 }

@@ -3,6 +3,7 @@
 // Main
 const main = document.getElementById("main");
 const text = document.getElementById("text");
+const others = document.getElementById("others");
 let products;
 
 const loadProducts = async () => {
@@ -19,6 +20,7 @@ const loadProducts = async () => {
 
 const displayProducts = async (category = null) => {
     main.innerHTML = "";
+    others.innerHTML = "";
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const filteredProducts = category ? products.filter(product => product.category === category) : products;
@@ -38,9 +40,9 @@ const displayProducts = async (category = null) => {
             <h3>${product.name}</h3>
             <p>${product.price}</p>
         `;
-
-        productCard.addEventListener("click", function () {
-            alertify.confirm("Deseja adicionar ao carrinho?", function (e) {
+        main
+        productCard.addEventListener("click", () => {
+            alertify.confirm("Deseja adicionar ao carrinho?", (e) => {
                 if(e) {
                     cart.push(product);
                     localStorage.setItem("cart", JSON.stringify(cart));
@@ -53,7 +55,7 @@ const displayProducts = async (category = null) => {
         });
 
         const carrinho = document.getElementById("carrinho");
-        carrinho.addEventListener("click", function () {
+        carrinho.addEventListener("click", () => {
             displayCart(cart);
         });
 
@@ -65,6 +67,7 @@ loadProducts();
 
 const displayCart = async (cart) => {
     main.innerHTML = "";
+    others.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
 
     if (cart.length == 0) {
@@ -91,12 +94,21 @@ const displayCart = async (cart) => {
 
             main.appendChild(productCard);
         });
+
+        if(cart.length != 0) {
+            const buyButton = document.createElement("button");
+            buyButton.classList.add("buyButton");
+            buyButton.innerHTML = `Finalizar compra`;
+            buyButton.onclick = () => { alertify.success("Compra finalizada!"); }
+            others.appendChild(buyButton);
+        }
     }
 }
 
 const displayLogin = async () => {
     main.innerHTML = "";
     text.innerHTML = "";
+    others.innerHTML = "";
 
     const loginForm = document.createElement("div");
     loginForm.style.cursor = "auto";
@@ -105,11 +117,11 @@ const displayLogin = async () => {
     loginForm.innerHTML = `
         <form action="javascript:loadLogin()" method="post">
             <label>E-mail:</label>
-            <input type="email" id="email" required><br><br>
+            <input type="email" id="email" class="loginTexts" required><br><br>
             <label>Senha:</label>
-            <input type="password" id="password" required><br><br>
-            <input type="submit" id="login" value="Entrar"><br><br>
-            <input type="button" id="cadastro" value="Fazer cadastro" onclick="displayLogup()">
+            <input type="password" id="password" class="loginTexts" required><br><br>
+            <input type="submit" id="login" value="Entrar" class="loginButtons"><br><br>
+            <input type="button" id="logup" value="Fazer cadastro" onclick="displayLogup()" class="loginButtons">
         </form>
     `;
 
@@ -119,6 +131,7 @@ const displayLogin = async () => {
 const displayLogup = async () => {
     main.innerHTML = "";
     text.innerHTML = "";
+    others.innerHTML = "";
 
     const logupForm = document.createElement("div");
     logupForm.style.cursor = "auto";
@@ -127,12 +140,14 @@ const displayLogup = async () => {
     logupForm.innerHTML = `
         <form action="javascript:loadLogup()" method="post">
             <label>Nome:</label>
-            <input type="text" id="name" requred><br><br>
+            <input type="text" id="name" class="logupTexts" required><br><br>
+            <label>CPF:&nbsp;&nbsp;</label>
+            <input type="text" id="cpf" class="logupTexts" required><br><br>
             <label>E-mail:</label>
-            <input type="email" id="email" required><br><br>
+            <input type="email" id="email" class="logupTexts" required><br><br>
             <label>Senha:</label>
-            <input type="password" id="password" required><br><br>
-            <input type="submit" id="cadastro" value="Cadastrar">
+            <input type="password" id="password" class="logupTexts" required><br><br>
+            <input type="submit" id="logup" value="Cadastrar" class="logupButtons">
         </form>
     `;
 
@@ -140,44 +155,38 @@ const displayLogup = async () => {
 }
 
 const loadLogin = async () => {
-    const email = $("#email").val();
-    const password = $("#password").val();
-
     $.ajax({
         type: "POST",
         url: "php/login.php",
         data: {
-            email: email,
-            password: password
+            email: $("#email").val(),
+            password: $("#password").val()
         },
-        success: function(data) {
+        success: (data) => {
             alertify.success("Logado com sucesso!");
             loadProducts();
         },
-        error: function(request, status, error) {
+        error: (request, status, error) => {
             console.error(request, status, error);
         }
     });
 }
 
 const loadLogup = async () => {
-    const nome = $("#nome").val();
-    const email = $("#email").val();
-    const password = $("#password").val();
-
     $.ajax({
         type: "POST",
         url: "php/cadastro.php",
         data: {
-            nome: nome,
-            email: email,
-            password: password
+            name: $("#name").val(),
+            cpf: $("#cpf").val(),
+            email: $("#email").val(),
+            password: $("#password").val()
         },
-        success: function(data) {
+        success: (data) => {
             alertify.success("Cadastrado com sucesso!");
             loadProducts();
         },
-        error: function(request, status, error) {
+        error: (request, status, error) => {
             console.error(request, status, error);
         }
     });
@@ -185,22 +194,20 @@ const loadLogup = async () => {
 
 // Others
 const enableDarkMode = async () => {
-    const body = document.body;
-
-    if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-    } else {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-    }
-
     if (text.classList.contains("light-mode")) {
         text.classList.remove("light-mode");
         text.classList.add("dark-mode");
     } else {
         text.classList.remove("dark-mode");
         text.classList.add("light-mode");
+    }
+
+    if (document.body.classList.contains("light-mode")) {
+        document.body.classList.remove("light-mode");
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+        document.body.classList.add("light-mode");
     }
 }
 
