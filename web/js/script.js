@@ -40,7 +40,7 @@ const displayProducts = async (category = null) => {
             <h3>${product.name}</h3>
             <p>${product.price}</p>
         `;
-        main
+
         productCard.addEventListener("click", () => {
             alertify.confirm("Deseja adicionar ao carrinho?", (e) => {
                 if(e) {
@@ -95,14 +95,24 @@ const displayCart = async (cart) => {
             main.appendChild(productCard);
         });
 
-        if(cart.length != 0) {
+        if (cart.length != 0) {
             const buyButton = document.createElement("button");
             buyButton.classList.add("buyButton");
             buyButton.innerHTML = `Finalizar compra`;
-            buyButton.onclick = () => { alertify.success("Compra finalizada!"); }
+            buyButton.onclick = () => { displayBuy() }
             others.appendChild(buyButton);
         }
     }
+}
+
+const displayBuy = async () => {
+    main.innerHTML = "";
+    text.innerHTML = "";
+    others.innerHTML = "";
+
+    main.innerHTML = `
+        <h2>Obrigado por comprar!</h2>
+    `;
 }
 
 const displayLogin = async () => {
@@ -142,7 +152,7 @@ const displayLogup = async () => {
             <label>Nome:</label>
             <input type="text" id="name" class="logupTexts" required><br><br>
             <label>CPF:&nbsp;&nbsp;</label>
-            <input type="text" id="cpf" class="logupTexts" required><br><br>
+            <input type="text" id="cpf" maxlength="14" oninput="cpfMascara(event)" placeholder="000.000.000-00" class="logupTexts" required><br><br>
             <label>E-mail:</label>
             <input type="email" id="email" class="logupTexts" required><br><br>
             <label>Senha:</label>
@@ -155,40 +165,22 @@ const displayLogup = async () => {
 }
 
 const loadLogin = async () => {
-    $.ajax({
-        type: "POST",
-        url: "php/login.php",
-        data: {
-            email: $("#email").val(),
-            password: $("#password").val()
-        },
-        success: (data) => {
-            alertify.success("Logado com sucesso!");
-            loadProducts();
-        },
-        error: (request, status, error) => {
-            console.error(request, status, error);
-        }
+    alertify.success("Logado com sucesso!");
+    
+    $('#main').load("php/login.php", {
+        'email': $("#email").val(),
+        'password': $("#password").val()
     });
 }
 
 const loadLogup = async () => {
-    $.ajax({
-        type: "POST",
-        url: "php/cadastro.php",
-        data: {
-            name: $("#name").val(),
-            cpf: $("#cpf").val(),
-            email: $("#email").val(),
-            password: $("#password").val()
-        },
-        success: (data) => {
-            alertify.success("Cadastrado com sucesso!");
-            loadProducts();
-        },
-        error: (request, status, error) => {
-            console.error(request, status, error);
-        }
+    alertify.success("Cadastrado com sucesso!");
+    
+    $('#main').load("php/cadastro.php", {
+        'name': $("#name").val(),
+        'cpf': $("#cpf").val(),
+        'email': $("#email").val(),
+        'password': $("#password").val()
     });
 }
 
@@ -213,4 +205,15 @@ const enableDarkMode = async () => {
 
 const limpar = async () => {
     localStorage.clear();
+}
+
+const cpfMascara = async (event) => {
+    let resultado = event.target.value;
+
+    cpf.value = resultado
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+        .replace(/(\-d{2})\d+?$/, '$1')
 }
