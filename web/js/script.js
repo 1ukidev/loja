@@ -6,7 +6,7 @@ const text = document.getElementById("text");
 const others = document.getElementById("others");
 let products;
 
-const loadProducts = async () => {
+const loadProducts = () => {
     fetch("json/products.json")
         .then(res => res.json())
         .then(data => {
@@ -18,7 +18,7 @@ const loadProducts = async () => {
         });
 }
 
-const displayProducts = async (category = null) => {
+const displayProducts = (category = null) => {
     main.innerHTML = "";
     others.innerHTML = "";
 
@@ -65,7 +65,7 @@ const displayProducts = async (category = null) => {
 
 loadProducts();
 
-const displayCart = async (cart) => {
+const displayCart = (cart) => {
     main.innerHTML = "";
     others.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
@@ -105,17 +105,39 @@ const displayCart = async (cart) => {
     }
 }
 
-const displayBuy = async () => {
+const displayBuy = () => {
     main.innerHTML = "";
     text.innerHTML = "";
     others.innerHTML = "";
 
-    main.innerHTML = `
-        <h2>Obrigado por comprar!</h2>
+    const buyForm = document.createElement("div");
+    buyForm.style.cursor = "auto";
+    buyForm.style.userSelect = "text";
+
+    buyForm.innerHTML = `
+        <form action="javascript:finishBuy()">
+            <label>Rua:</label>
+            <input type="text" id="rua" class="logupTexts" required><br><br>
+            <label>Número:</label>
+            <input type="number" min="1" id="numero" class="logupTexts" required><br><br>
+            <label>Bairro:</label>
+            <input type="text" id="bairro" class="logupTexts" required><br><br>
+            <label>Cidade:</label>
+            <input type="text" id="cidade" class="logupTexts" required><br><br>
+            <label>Estado:</label>
+            <input type="text" id="estado" class="logupTexts" required><br><br>
+            <input type="submit" id="finishBuy" value="Finalizar compra" class="logupButtons">
+        </form>
     `;
+
+    main.appendChild(buyForm);
 }
 
-const displayLogin = async () => {
+const finishBuy = () => {
+    main.innerHTML = "<h2>Obrigado por comprar!</h2>";
+}
+
+const displayLogin = () => {
     main.innerHTML = "";
     text.innerHTML = "";
     others.innerHTML = "";
@@ -125,7 +147,7 @@ const displayLogin = async () => {
     loginForm.style.userSelect = "text";
 
     loginForm.innerHTML = `
-        <form action="javascript:loadLogin()" method="post">
+        <form action="javascript:loadLogin()">
             <label>E-mail:</label>
             <input type="email" id="email" class="loginTexts" required><br><br>
             <label>Senha:</label>
@@ -138,7 +160,7 @@ const displayLogin = async () => {
     main.appendChild(loginForm);
 }
 
-const displayLogup = async () => {
+const displayLogup = () => {
     main.innerHTML = "";
     text.innerHTML = "";
     others.innerHTML = "";
@@ -148,11 +170,11 @@ const displayLogup = async () => {
     logupForm.style.userSelect = "text";
 
     logupForm.innerHTML = `
-        <form action="javascript:loadLogup()" method="post">
+        <form action="javascript:loadLogup()">
             <label>Nome:</label>
             <input type="text" id="name" class="logupTexts" required><br><br>
             <label>CPF:&nbsp;&nbsp;</label>
-            <input type="text" id="cpf" maxlength="14" oninput="cpfMascara(event)" placeholder="000.000.000-00" class="logupTexts" required><br><br>
+            <input type="text" id="cpf" maxlength="14" oninput="cpfMask(event)" placeholder="000.000.000-00" class="logupTexts" required><br><br>
             <label>E-mail:</label>
             <input type="email" id="email" class="logupTexts" required><br><br>
             <label>Senha:</label>
@@ -164,18 +186,14 @@ const displayLogup = async () => {
     main.appendChild(logupForm);
 }
 
-const loadLogin = async () => {
-    alertify.success("Logado com sucesso!");
-    
+const loadLogin = () => {
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
         'password': $("#password").val()
     });
 }
 
-const loadLogup = async () => {
-    alertify.success("Cadastrado com sucesso!");
-    
+const loadLogup = () => {
     $('#main').load("php/cadastro.php", {
         'name': $("#name").val(),
         'cpf': $("#cpf").val(),
@@ -185,7 +203,7 @@ const loadLogup = async () => {
 }
 
 // Others
-const enableDarkMode = async () => {
+const enableDarkMode = () => {
     if (text.classList.contains("light-mode")) {
         text.classList.remove("light-mode");
         text.classList.add("dark-mode");
@@ -203,11 +221,11 @@ const enableDarkMode = async () => {
     }
 }
 
-const limpar = async () => {
+const clean = () => {
     localStorage.clear();
 }
 
-const cpfMascara = async (event) => {
+const cpfMask = (event) => {
     let resultado = event.target.value;
 
     cpf.value = resultado

@@ -17,9 +17,9 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "<h3>Logado com sucesso!<h3>";
+        echo "<script>alertify.success('Logado com sucesso!'); displayProducts()</script>";
     } else {
-        echo "<h3>Este usuário não existe</h3>";
+        echo "<script>alertify.error('Este usuário não existe'); displayProducts()</script>";
     }
 
     $conn->close();

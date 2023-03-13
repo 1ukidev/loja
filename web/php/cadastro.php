@@ -18,7 +18,7 @@
     $sql = "INSERT INTO teste23 (nome, email, password, cpf) VALUES ('$name', '$email', '$password', '$cpf')";
 
     if($conn->query($sql) === TRUE) {
-        echo "<h3>Cadastrado com sucesso!<h3>";
+        echo "<script>alertify.success('Cadastro com sucesso!'); displayProducts()</script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
