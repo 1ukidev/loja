@@ -18,7 +18,13 @@
     $sql = "INSERT INTO teste23 (nome, email, password, cpf) VALUES ('$name', '$email', '$password', '$cpf')";
 
     if($conn->query($sql) === TRUE) {
-        echo "<script>alertify.success('Cadastro com sucesso!'); displayProducts()</script>";
+        echo "<script>
+                alertify.success('Cadastro com sucesso!');
+                profile.push('Robson');
+                localStorage.setItem('profile', JSON.stringify(profile));
+                displayProducts();
+                console.log(profile);
+            </script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

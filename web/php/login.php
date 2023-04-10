@@ -17,9 +17,19 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "<script>alertify.success('Logado com sucesso!'); displayProducts()</script>";
+        echo "<script>
+                alertify.success('Logado com sucesso!');
+                profile.push('Robson');
+                localStorage.setItem('profile', JSON.stringify(profile));
+                displayProducts();
+                document.getElementById('login').remove();
+                document.getElementById('perfil').style.display = 'block';
+            </script>";
     } else {
-        echo "<script>alertify.error('Este usuário não existe'); displayProducts()</script>";
+        echo "<script>
+                alertify.error('Este usuário não existe');
+                displayProducts();
+            </script>";
     }
 
     $conn->close();

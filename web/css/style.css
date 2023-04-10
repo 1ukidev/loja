@@ -68,6 +68,10 @@ a[id="dark-mode"] {
     float: right;
 }
 
+a[id="perfil"] {
+    float: right;
+}
+
 @media screen and (max-width: 1375px) {
     .navbar a {
         float: none;

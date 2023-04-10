@@ -1,5 +1,15 @@
 // Made by 1ukidev aka Leozinho
 
+// Startup
+let profile = JSON.parse(localStorage.getItem("profile")) || [];
+
+if (profile.length <= 0) {
+    document.getElementById("perfil").style.display = "none";
+} else {
+    document.getElementById("perfil").style.display = "block";
+    document.getElementById("login").style.display = "none";
+}
+
 // Main
 const main = document.getElementById("main");
 const text = document.getElementById("text");
@@ -43,7 +53,7 @@ const displayProducts = (category = null) => {
 
         productCard.addEventListener("click", () => {
             alertify.confirm("Deseja adicionar ao carrinho?", (e) => {
-                if(e) {
+                if (e) {
                     cart.push(product);
                     localStorage.setItem("cart", JSON.stringify(cart));
                     displayCart(cart);
@@ -119,7 +129,7 @@ const displayBuy = () => {
             <label>Rua:</label>
             <input type="text" id="rua" class="logupTexts" required><br><br>
             <label>Número:</label>
-            <input type="number" min="1" id="numero" class="logupTexts" required><br><br>
+            <input type="text" oninput="numberMask(event)" id="numero" class="logupTexts" required><br><br>
             <label>Bairro:</label>
             <input type="text" id="bairro" class="logupTexts" required><br><br>
             <label>Cidade:</label>
@@ -131,10 +141,6 @@ const displayBuy = () => {
     `;
 
     main.appendChild(buyForm);
-}
-
-const finishBuy = () => {
-    main.innerHTML = "<h2>Obrigado por comprar!</h2>";
 }
 
 const displayLogin = () => {
@@ -194,12 +200,22 @@ const loadLogin = () => {
 }
 
 const loadLogup = () => {
-    $('#main').load("php/cadastro.php", {
+    $('#main').load("php/logup.php", {
         'name': $("#name").val(),
         'cpf': $("#cpf").val(),
         'email': $("#email").val(),
         'password': $("#password").val()
     });
+}
+
+const finishBuy = () => {
+    $('#main'.load("php/buy.php", {
+        'rua': $("#rua").val(),
+        'numero': $("#numero").val(),
+        'bairro': $("#bairro").val(),
+        'cidade': $("#cidade").val(),
+        'estado': $("#estado").val()
+    }))
 }
 
 // Others
@@ -226,12 +242,32 @@ const clean = () => {
 }
 
 const cpfMask = (event) => {
-    let resultado = event.target.value;
+    let result = event.target.value;
 
-    cpf.value = resultado
+    cpf.value = result
         .replace(/\D/g, '')
         .replace(/(\d{3})(\d)/, '$1.$2')
         .replace(/(\d{3})(\d)/, '$1.$2')
         .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-        .replace(/(\-d{2})\d+?$/, '$1')
+        .replace(/(\-d{2})\d+?$/, '$1');
+}
+
+const numberMask = (event) => {
+    let result = event.target.value;
+
+    numero.value = result
+        .replace(/[^0-9.]/g, '')
+        .replace(/(\..*)\./g, '$1');
+}
+
+const openProfile = () => {
+    text.innerHTML = "<h1>Perfil<h1>";
+
+    main.innerHTML = `
+        <h2>Seu nome: ${profile[0]}</h2>
+    `;
+
+    others.innerHTML = `
+        <button onclick="localStorage.clear()">Deslogar</button>
+    `;
 }

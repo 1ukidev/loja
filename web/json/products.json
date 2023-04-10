@@ -40,5 +40,12 @@
         "name": "Carrinho",
         "img": "https://arquivosbrasil.blob.core.windows.net/insulas/imagem/802179_1-3560675.png",
         "price": "R$50"
+    },
+    {
+        "id": 6,
+        "category": "Brinquedos",
+        "name": "Avião de brinquedo",
+        "img": "https://www.imagenspng.com.br/wp-content/uploads/2018/04/mundo-de-bita-brinquedo-16.png",
+        "price": "R$45"
     }
 ]
