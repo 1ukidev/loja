@@ -1,4 +1,4 @@
- CREATE TABLE USER(
+ CREATE TABLE cegonha(
     id_user INT AUTO_INCREMENT NOT NULL,
     name_user VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
