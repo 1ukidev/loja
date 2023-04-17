@@ -16,6 +16,7 @@
     }
 
     $sql = "INSERT INTO teste23 (nome, email, password, cpf) VALUES ('$name', '$email', '$password', '$cpf')";
+    // $sql = "INSERT INTO Users (nome, email, password, cpf) VALUES ('$name', '$email', '$password', '$cpf')";
 
     if($conn->query($sql) === TRUE) {
         echo "<script>

@@ -56,7 +56,7 @@
     color: white;
 }
 
-a[id="carrinho"] {
+a[id="cart"] {
     float: right;
 }
 
@@ -68,7 +68,7 @@ a[id="dark-mode"] {
     float: right;
 }
 
-a[id="perfil"] {
+a[id="profile"] {
     float: right;
 }
 
@@ -79,7 +79,7 @@ a[id="perfil"] {
         text-align: left;
     }
 
-    a[id="carrinho"] {
+    a[id="cart"] {
         float: none;
     }
 
@@ -153,6 +153,17 @@ a[id="perfil"] {
 /* Inputs */
 
 .buyButton {
+    margin-top: 25px;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+    background-color: #333;
+    color: white;
+}
+
+.logoutButton {
     margin-top: 25px;
     flex-direction: column;
     align-items: center;

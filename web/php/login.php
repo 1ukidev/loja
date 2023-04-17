@@ -14,6 +14,7 @@
     }
 
     $sql = "SELECT email, password FROM teste23 WHERE email='$email' AND password='$password'";
+    // $sql = "SELECT email, password FROM Users WHERE email='$email' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -23,7 +24,7 @@
                 localStorage.setItem('profile', JSON.stringify(profile));
                 displayProducts();
                 document.getElementById('login').remove();
-                document.getElementById('perfil').style.display = 'block';
+                document.getElementById('profile').style.display = 'block';
             </script>";
     } else {
         echo "<script>

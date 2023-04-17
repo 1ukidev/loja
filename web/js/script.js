@@ -4,9 +4,9 @@
 let profile = JSON.parse(localStorage.getItem("profile")) || [];
 
 if (profile.length <= 0) {
-    document.getElementById("perfil").style.display = "none";
+    document.getElementById("profile").style.display = "none";
 } else {
-    document.getElementById("perfil").style.display = "block";
+    document.getElementById("profile").style.display = "block";
     document.getElementById("login").style.display = "none";
 }
 
@@ -64,8 +64,8 @@ const displayProducts = (category = null) => {
               .setting("modal", false)
         });
 
-        const carrinho = document.getElementById("carrinho");
-        carrinho.addEventListener("click", () => {
+        const cartHTML = document.getElementById("cart");
+        cartHTML.addEventListener("click", () => {
             displayCart(cart);
         });
 
@@ -106,11 +106,9 @@ const displayCart = (cart) => {
         });
 
         if (cart.length != 0) {
-            const buyButton = document.createElement("button");
-            buyButton.classList.add("buyButton");
-            buyButton.innerHTML = `Finalizar compra`;
-            buyButton.onclick = () => { displayBuy() }
-            others.appendChild(buyButton);
+            others.innerHTML = `
+                <button class="buyButton" onclick="displayBuy()">Finalizar compra</button>
+            `;
         }
     }
 }
@@ -127,15 +125,15 @@ const displayBuy = () => {
     buyForm.innerHTML = `
         <form action="javascript:finishBuy()">
             <label>Rua:</label>
-            <input type="text" id="rua" class="logupTexts" required><br><br>
+            <input type="text" id="street" class="logupTexts" required><br><br>
             <label>Número:</label>
-            <input type="text" oninput="numberMask(event)" id="numero" class="logupTexts" required><br><br>
+            <input type="text" oninput="numberMask(event)" id="number" class="logupTexts" required><br><br>
             <label>Bairro:</label>
-            <input type="text" id="bairro" class="logupTexts" required><br><br>
+            <input type="text" id="district" class="logupTexts" required><br><br>
             <label>Cidade:</label>
-            <input type="text" id="cidade" class="logupTexts" required><br><br>
+            <input type="text" id="city" class="logupTexts" required><br><br>
             <label>Estado:</label>
-            <input type="text" id="estado" class="logupTexts" required><br><br>
+            <input type="text" id="state" class="logupTexts" required><br><br>
             <input type="submit" id="finishBuy" value="Finalizar compra" class="logupButtons">
         </form>
     `;
@@ -179,7 +177,7 @@ const displayLogup = () => {
         <form action="javascript:loadLogup()">
             <label>Nome:</label>
             <input type="text" id="name" class="logupTexts" required><br><br>
-            <label>CPF:&nbsp;&nbsp;</label>
+            <label>CPF:</label>
             <input type="text" id="cpf" maxlength="14" oninput="cpfMask(event)" placeholder="000.000.000-00" class="logupTexts" required><br><br>
             <label>E-mail:</label>
             <input type="email" id="email" class="logupTexts" required><br><br>
@@ -209,13 +207,13 @@ const loadLogup = () => {
 }
 
 const finishBuy = () => {
-    $('#main'.load("php/buy.php", {
+    $('#main').load("php/buy.php", {
         'rua': $("#rua").val(),
         'numero': $("#numero").val(),
         'bairro': $("#bairro").val(),
         'cidade': $("#cidade").val(),
         'estado': $("#estado").val()
-    }))
+    })
 }
 
 // Others
@@ -268,6 +266,6 @@ const openProfile = () => {
     `;
 
     others.innerHTML = `
-        <button onclick="localStorage.clear()">Deslogar</button>
+        <button class="logoutButton" onclick="clean()">Deslogar</button>
     `;
 }
