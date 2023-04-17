@@ -19,5 +19,5 @@
     city VARCHAR(50) NOT NULL,
     state VARCHAR(50) NOT NULL,
     PRIMARY KEY(id_order),
-    FOREIGN KEY (buyer) REFERENCES USER(id_user)
+    FOREIGN KEY (buyer) REFERENCES cegonha(id_user)
   );
