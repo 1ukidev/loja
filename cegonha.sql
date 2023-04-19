@@ -14,7 +14,7 @@
     category VARCHAR(50) NOT NULL,
     price DECIMAL(5,2) NOT NULL,
     street VARCHAR(50) NOT NULL,
-    number INT NOT NULL,
+    num INT NOT NULL,
     district VARCHAR(50) NOT NULL,
     city VARCHAR(50) NOT NULL,
     state VARCHAR(50) NOT NULL,
