@@ -24,5 +24,5 @@
   
   SELECT c.id_user,c.name_user,c.email,b.name_buyer,b.category,b.price,b.street,b.number,b.district,b.city,b.state
   from cegonha AS c 
-  INNER JOIN buy AS b 
+  RIGHT JOIN buy AS b 
   ON c.id_user = b.id_order;
