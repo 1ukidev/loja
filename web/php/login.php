@@ -5,7 +5,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "123456";
-    $dbname = "teste23";
+    $dbname = "projeto";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -13,15 +13,16 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT email, password FROM teste23 WHERE email='$email' AND password='$password'";
-    // $sql = "SELECT email, password FROM Users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT name_user, email, password FROM cegonha WHERE email='$email' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        echo "<script>" . "profile.push('" . $row["name_user"] . "')" . "</script>";
+
         echo "<script>
-                alertify.success('Logado com sucesso!');
-                profile.push('Robson');
                 localStorage.setItem('profile', JSON.stringify(profile));
+                alertify.success('Logado com sucesso!');
                 displayProducts();
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';

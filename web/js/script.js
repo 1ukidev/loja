@@ -208,11 +208,11 @@ const loadLogup = () => {
 
 const finishBuy = () => {
     $('#main').load("php/buy.php", {
-        'rua': $("#rua").val(),
-        'numero': $("#numero").val(),
-        'bairro': $("#bairro").val(),
-        'cidade': $("#cidade").val(),
-        'estado': $("#estado").val()
+        'street': $("#street").val(),
+        'number': $("#number").val(),
+        'district': $("#district").val(),
+        'city': $("#city").val(),
+        'state': $("#state").val()
     })
 }
 
@@ -235,9 +235,7 @@ const enableDarkMode = () => {
     }
 }
 
-const clean = () => {
-    localStorage.clear();
-}
+const clean = () => localStorage.clear();
 
 const cpfMask = (event) => {
     let result = event.target.value;
@@ -258,7 +256,7 @@ const numberMask = (event) => {
         .replace(/(\..*)\./g, '$1');
 }
 
-const openProfile = () => {
+const displayProfile = () => {
     text.innerHTML = "<h1>Perfil<h1>";
 
     main.innerHTML = `

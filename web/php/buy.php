@@ -5,10 +5,15 @@
     $city = $_POST["city"];
     $state = $_POST["state"];
     
+    $buyer = "0";
+    $name_buyer = "0";
+    $category = "0";
+    $price = "0";
+    
     $servername = "localhost";
     $username = "root";
     $password = "123456";
-    $dbname = "teste23";
+    $dbname = "projeto";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -16,8 +21,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "";
-    // $sql = "INSERT INTO Orders (street, number, district, city, state) VALUES ()";
+    $sql = "INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state) VALUES ('$buyer', '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')";
 
     if($conn->query($sql) === TRUE) {
         echo "<script>
