@@ -256,6 +256,11 @@ const numberMask = (event) => {
         .replace(/(\..*)\./g, '$1');
 }
 
+const clean = () => {
+    localStorage.clear();
+    location.href = "/loja/web";
+}
+
 const displayProfile = () => {
     text.innerHTML = "<h1>Perfil<h1>";
 
@@ -264,6 +269,6 @@ const displayProfile = () => {
     `;
 
     others.innerHTML = `
-        <button class="logoutButton" onclick="localStorage.clear()">Deslogar</button>
+        <button class="logoutButton" onclick="clean()">Deslogar</button>
     `;
 }
