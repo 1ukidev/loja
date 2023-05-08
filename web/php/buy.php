@@ -4,7 +4,10 @@
     $district = $_POST["district"];
     $city = $_POST["city"];
     $state = $_POST["state"];
-    
+    $userEmail = $_POST["userEmail"];
+    echo $userEmail;
+
+    // Temporário
     $buyer = "0";
     $name_buyer = "0";
     $category = "0";
@@ -21,7 +24,11 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state) VALUES ('$buyer', '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')";
+    // Incompleto
+    $sql = "
+        INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state)
+        VALUES ('$buyer', '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')
+    ";
 
     if($conn->query($sql) === TRUE) {
         echo "<script>

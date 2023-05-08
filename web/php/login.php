@@ -18,14 +18,16 @@
 
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
-        echo "<script>" . "profile.push('" . $row["name_user"] . "')" . "</script>";
+        echo "<script>" . "profileName.push('" . $row["name_user"] . "')" . "</script>";
 
         echo "<script>
-                localStorage.setItem('profile', JSON.stringify(profile));
+                localStorage.setItem('profileName', JSON.stringify(profileName));
                 alertify.success('Logado com sucesso!');
                 displayProducts();
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
+                userEmail.push('$email');
+                localStorage.setItem('userEmail', JSON.stringify(userEmail));
             </script>";
     } else {
         echo "<script>

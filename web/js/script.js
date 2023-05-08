@@ -1,9 +1,10 @@
 // Made by 1ukidev aka Leozinho
 
 // Startup
-let profile = JSON.parse(localStorage.getItem("profile")) || [];
+let profileName = JSON.parse(localStorage.getItem("profileName")) || [];
+let userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 
-if (profile.length <= 0) {
+if (profileName.length <= 0) {
     document.getElementById("profile").style.display = "none";
 } else {
     document.getElementById("profile").style.display = "block";
@@ -125,15 +126,15 @@ const displayBuy = () => {
     buyForm.innerHTML = `
         <form action="javascript:finishBuy()">
             <label>Rua:</label>
-            <input type="text" id="street" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="street" class="logupTexts"  required><br><br>
             <label>Número:</label>
             <input type="text" oninput="numberMask(event)" id="number" class="logupTexts" required><br><br>
             <label>Bairro:</label>
-            <input type="text" id="district" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="district" class="logupTexts" required><br><br>
             <label>Cidade:</label>
-            <input type="text" id="city" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="city" class="logupTexts" required><br><br>
             <label>Estado:</label>
-            <input type="text" id="state" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="state" class="logupTexts" required><br><br>
             <input type="submit" id="finishBuy" value="Finalizar compra" class="logupButtons">
         </form>
     `;
@@ -212,7 +213,8 @@ const finishBuy = () => {
         'number': $("#number").val(),
         'district': $("#district").val(),
         'city': $("#city").val(),
-        'state': $("#state").val()
+        'state': $("#state").val(),
+        'userEmail': userEmail[0].toString()
     })
 }
 
@@ -235,8 +237,6 @@ const enableDarkMode = () => {
     }
 }
 
-const clean = () => localStorage.clear();
-
 const cpfMask = (event) => {
     let result = event.target.value;
 
@@ -251,7 +251,7 @@ const cpfMask = (event) => {
 const numberMask = (event) => {
     let result = event.target.value;
 
-    numero.value = result
+    number.value = result
         .replace(/[^0-9.]/g, '')
         .replace(/(\..*)\./g, '$1');
 }
@@ -260,10 +260,10 @@ const displayProfile = () => {
     text.innerHTML = "<h1>Perfil<h1>";
 
     main.innerHTML = `
-        <h2>Seu nome: ${profile[0]}</h2>
+        <h2>Seu nome: ${profileName[0]}</h2>
     `;
 
     others.innerHTML = `
-        <button class="logoutButton" onclick="clean()">Deslogar</button>
+        <button class="logoutButton" onclick="localStorage.clear()">Deslogar</button>
     `;
 }

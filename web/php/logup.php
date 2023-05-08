@@ -24,10 +24,13 @@
     if($conn->query($sql) === TRUE) {
         echo "<script>
                 alertify.success('Cadastro com sucesso!');
-                profile.push('$name');
-                localStorage.setItem('profile', JSON.stringify(profile));
+                profileName.push('$name');
+                localStorage.setItem('profileName', JSON.stringify(profileName));
                 displayProducts();
-                console.log(profile);
+                document.getElementById('login').remove();
+                document.getElementById('profile').style.display = 'block';
+                userEmail.push('$email');
+                localStorage.setItem('userEmail', JSON.stringify(userEmail));
             </script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
