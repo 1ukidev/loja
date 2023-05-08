@@ -7,7 +7,7 @@
     $userEmail = $_POST["userEmail"];
     echo $userEmail;
 
-    // Temporário
+    // Temporary
     $buyer = "0";
     $name_buyer = "0";
     $category = "0";
@@ -24,7 +24,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Incompleto
+    // Incomplete
     $sql = "
         INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state)
         VALUES ('$buyer', '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')

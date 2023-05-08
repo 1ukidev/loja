@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-mode">
-    <div class="navbar sans-font">
+    <div class="navbar">
         <a class="title" href="/loja/web/"><i class="fa-solid fa-dragon fa-xl"></i> Presente da Cegonha</a>
         <a onclick="displayProducts('Brinquedos')"><i class="fa-solid fa-puzzle-piece"></i> Brinquedos</a>
         <a onclick="displayProducts('Roupas')"><i class="fa-solid fa-shirt"></i> Roupas</a>
@@ -27,10 +28,10 @@
         <a class="others" id="cart" onclick="clean()"><i class="fa-solid fa-trash"></i> Limpar localStorage</a>
     </div>
 
-    <div id="text" class="sans-font dark-mode"></div>
+    <div id="text" class="dark-mode"></div>
 
-    <div id="main" class="sans-font"></div>
-    <div id="others" class="sans-font"></div>
+    <div id="main"></div>
+    <div id="others"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
