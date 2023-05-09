@@ -5,10 +5,8 @@
     $city = $_POST["city"];
     $state = $_POST["state"];
     $userEmail = $_POST["userEmail"];
-    echo $userEmail;
 
-    // Temporary
-    $buyer = "0";
+    // TODO
     $name_buyer = "0";
     $category = "0";
     $price = "0";
@@ -24,19 +22,30 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Incomplete
-    $sql = "
-        INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state)
-        VALUES ('$buyer', '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')
-    ";
+    $sql = "SELECT id_user FROM cegonha WHERE email='$userEmail'";
+    $result = $conn->query($sql);
+    
+    if($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $id_user = $row["id_user"];
 
-    if($conn->query($sql) === TRUE) {
+        $sql = "
+            INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state)
+            VALUES ((SELECT id_user FROM cegonha WHERE id_user='$id_user'), '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')
+        ";
+
+        $result = $conn->query($sql);
+
         echo "<script>
-                alertify.success('Enviado com sucesso!');
+                alertify.success('Comprado com sucesso!');
+                localStorage.removeItem('cart');
                 displayProducts();
             </script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>
+                alertify.error('Compra não realizada');
+                displayProducts();
+            </script>";
     }
 
     $conn->close();

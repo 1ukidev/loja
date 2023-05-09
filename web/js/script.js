@@ -4,11 +4,9 @@
 let profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 let userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 
-if (profileName.length <= 0) {
-    document.getElementById("profile").style.display = "none";
-} else {
-    document.getElementById("profile").style.display = "block";
+if (!profileName.length <= 0) {
     document.getElementById("login").style.display = "none";
+    document.getElementById("profile").style.display = "block";
 }
 
 // Main
