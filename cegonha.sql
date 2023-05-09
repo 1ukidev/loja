@@ -11,7 +11,6 @@
     buyer INT NOT NULL,
     id_order INT AUTO_INCREMENT NOT NULL,
     name_buyer VARCHAR(50) NOT NULL,
-    category VARCHAR(50) NOT NULL,
     price DECIMAL(5,2) NOT NULL,
     street VARCHAR(50) NOT NULL,
     num INT NOT NULL,
