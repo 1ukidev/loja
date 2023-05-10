@@ -5,11 +5,8 @@
     $city = $_POST["city"];
     $state = $_POST["state"];
     $userEmail = $_POST["userEmail"];
-
-    // TODO
-    $name_buyer = "0";
-    $category = "0";
-    $price = "0";
+    $name_buyer = $_POST["profileName"];
+    $price = $_POST["price"];
     
     $servername = "localhost";
     $username = "root";
@@ -30,17 +27,22 @@
         $id_user = $row["id_user"];
 
         $sql = "
-            INSERT INTO buy (buyer, name_buyer, category, price, street, num, district, city, state)
-            VALUES ((SELECT id_user FROM cegonha WHERE id_user='$id_user'), '$name_buyer', '$category', '$price', '$street', '$number', '$district', '$city', '$state')
+            INSERT INTO buy (buyer, name_buyer, price, street, num, district, city, state)
+            VALUES ((SELECT id_user FROM cegonha WHERE id_user='$id_user'), '$name_buyer', '$price', '$street', '$number', '$district', '$city', '$state')
         ";
 
-        $result = $conn->query($sql);
-
-        echo "<script>
-                alertify.success('Comprado com sucesso!');
-                localStorage.removeItem('cart');
-                displayProducts();
-            </script>";
+        if($conn->query($sql) === TRUE) {
+            echo "<script>
+                    alertify.success('Comprado com sucesso!');
+                    localStorage.removeItem('cart');
+                    displayProducts();
+                </script>";
+        } else {
+            echo "<script>
+                    alertify.error('Compra não realizada');
+                    displayProducts();
+                </script>";
+        }
     } else {
         echo "<script>
                 alertify.error('Compra não realizada');

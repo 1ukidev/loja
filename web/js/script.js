@@ -14,6 +14,7 @@ const main = document.getElementById("main");
 const text = document.getElementById("text");
 const others = document.getElementById("others");
 let products;
+let price = 0;
 
 const loadProducts = () => {
     fetch("json/products.json")
@@ -189,6 +190,14 @@ const displayLogup = () => {
     main.appendChild(logupForm);
 }
 
+const estimatePrice = () => {
+    for(var i = 0; i < localStorage.length; i++) { 
+        price = price + parseInt(JSON.parse(localStorage.getItem("cart"))[i].price.slice(2));
+    }
+
+    return price;
+}
+
 const loadLogin = () => {
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
@@ -212,7 +221,9 @@ const finishBuy = () => {
         'district': $("#district").val(),
         'city': $("#city").val(),
         'state': $("#state").val(),
-        'userEmail': userEmail[0].toString()
+        'userEmail': userEmail[0],
+        'profileName': profileName[0],
+        'price': estimatePrice(),
     })
 }
 
