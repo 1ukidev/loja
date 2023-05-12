@@ -18,7 +18,9 @@
     city VARCHAR(50) NOT NULL,
     state VARCHAR(50) NOT NULL,
     PRIMARY KEY(id_order),
+    CONSTRAINT fk_buyer 
     FOREIGN KEY (buyer) REFERENCES cegonha(id_user)
+    ON DELETE CASCADE
   );
   
   SELECT c.id_user,c.name_user,c.email,b.name_buyer,b.category,b.price,b.street,b.number,b.district,b.city,b.state
