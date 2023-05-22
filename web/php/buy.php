@@ -39,13 +39,13 @@
                 </script>";
         } else {
             echo "<script>
-                    alertify.error('Compra não realizada');
+                    alertify.error('Compra não realizada / Tente mais tarde');
                     displayProducts();
                 </script>";
         }
     } else {
         echo "<script>
-                alertify.error('Compra não realizada');
+                alertify.error('Compra não realizada / Faça login antes');
                 displayProducts();
             </script>";
     }

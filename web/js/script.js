@@ -1,6 +1,13 @@
 // Made by 1ukidev aka Leozinho
 
 // Startup
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    document.getElementById("text").classList.remove("dark-mode");
+    document.getElementById("text").classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+}
+
 let profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 let userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 
@@ -14,7 +21,6 @@ const main = document.getElementById("main");
 const text = document.getElementById("text");
 const others = document.getElementById("others");
 let products;
-let price = 0;
 
 const loadProducts = () => {
     fetch("json/products.json")
@@ -125,15 +131,44 @@ const displayBuy = () => {
     buyForm.innerHTML = `
         <form action="javascript:finishBuy()">
             <label>Rua:</label>
-            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="street" class="logupTexts"  required><br><br>
+            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="street" class="logupTexts" required><br><br>
             <label>Número:</label>
             <input type="text" oninput="numberMask(event)" id="number" class="logupTexts" required><br><br>
             <label>Bairro:</label>
-            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="district" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="district" class="logupTexts" required><br><br>
             <label>Cidade:</label>
-            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="city" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="city" class="logupTexts" required><br><br>
             <label>Estado:</label>
-            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" id="state" class="logupTexts" required><br><br>
+            <select id="state" class="logupTexts" required>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                <option value="EX">Estrangeiro</option>
+            </select><br><br>
             <input type="submit" id="finishBuy" value="Finalizar compra" class="logupButtons">
         </form>
     `;
@@ -191,12 +226,20 @@ const displayLogup = () => {
 }
 
 const estimatePrice = () => {
-    for(var i = 0; i < localStorage.length; i++) { 
-        price = price + parseInt(JSON.parse(localStorage.getItem("cart"))[i].price.slice(2));
+    let price = 0;
+    const cart = JSON.parse(localStorage.getItem("cart"));
+
+    if (cart && Array.isArray(cart)) {
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i] && cart[i].price) {
+                price += parseInt(cart[i].price.slice(2));
+            }
+        }
     }
 
     return price;
 }
+
 
 const loadLogin = () => {
     $('#main').load("php/login.php", {
