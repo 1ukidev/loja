@@ -1,4 +1,4 @@
-CREATE TABLE cegonha(
+CREATE TABLE cegonha (
     id_user INT AUTO_INCREMENT NOT NULL,
     name_user VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE cegonha(
     PRIMARY KEY(id_user)
 );
 
-CREATE TABLE buy(
+CREATE TABLE buy (
     buyer INT NOT NULL,
     id_order INT AUTO_INCREMENT NOT NULL,
     name_buyer VARCHAR(50) NOT NULL,
