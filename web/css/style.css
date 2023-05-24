@@ -93,13 +93,11 @@ a[id="profile"] {
 .dark-mode {
     background-color: #141414;
     color: white;
-    transition: .3s;
 }
 
 .light-mode {
     background-color: #fff;
     color: black;
-    transition: .3s;
 }
 
 /* Main */

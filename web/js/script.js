@@ -240,7 +240,6 @@ const estimatePrice = () => {
     return price;
 }
 
-
 const loadLogin = () => {
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
