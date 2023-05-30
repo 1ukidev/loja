@@ -10,10 +10,10 @@
     
     $servername = "localhost";
     $username = "root";
-    $password = "123456";
+    $password_db = "123456";
     $dbname = "projeto";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password_db, $dbname);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
