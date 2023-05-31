@@ -313,13 +313,22 @@ const clean = () => {
 }
 
 const displayProfile = () => {
-    text.innerHTML = "<h1>Perfil<h1>";
+    text.innerHTML = "";
+    others.innerHTML = "";
 
-    main.innerHTML = `
-        <h2>Seu nome: ${profileName[0]}</h2>
-    `;
+    if(profileName[0] == undefined) {
+        main.innerHTML = `
+            <h2>Usuário não está logado</h2>
+        `;
+    } else {
+        text.innerHTML = "<h1>Perfil<h1>";
 
-    others.innerHTML = `
-        <button class="logoutButton" onclick="clean()">Deslogar</button>
-    `;
+        main.innerHTML = `
+            <h2>Seu nome: ${profileName[0]}</h2>
+        `;
+
+        others.innerHTML = `
+            <button class="logoutButton" onclick="clean()">Deslogar</button>
+        `;
+    }
 }
