@@ -31,6 +31,7 @@
     if ($stmt->execute()) {
         echo "<script>
                 alertify.success('Cadastro com sucesso!');
+                profileName = [];
                 profileName.push('$name');
                 localStorage.setItem('profileName', JSON.stringify(profileName));
                 displayProducts();

@@ -21,7 +21,7 @@
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        echo "<script>" . "profileName.push('" . $row["name_user"] . "')" . "</script>";
+        echo "<script>" . "profileName = []; profileName.push('" . $row["name_user"] . "')" . "</script>";
 
         echo "<script>
                 localStorage.setItem('profileName', JSON.stringify(profileName));
