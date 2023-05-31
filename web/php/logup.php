@@ -19,9 +19,16 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO cegonha (name_user, email, password, cpf) VALUES ('$name', '$email', '$password', '$cpf')";
+    $sql = "INSERT INTO cegonha (name_user, email, password, cpf) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
 
-    if($conn->query($sql) === TRUE) {
+    if (!$stmt) {
+        die("Error: " . $conn->error);
+    }
+
+    $stmt->bind_param("ssss", $name, $email, $password, $cpf);
+
+    if ($stmt->execute()) {
         echo "<script>
                 alertify.success('Cadastro com sucesso!');
                 profileName.push('$name');
@@ -33,8 +40,9 @@
                 localStorage.setItem('userEmail', JSON.stringify(userEmail));
             </script>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 ?>

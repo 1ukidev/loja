@@ -4,20 +4,23 @@
     
     $servername = "localhost";
     $username = "root";
-    $password = "123456";
+    $dbpassword = "123456";
     $dbname = "projeto";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT name_user, email, password FROM cegonha WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
+    $sql = "SELECT name_user, email, password FROM cegonha WHERE email=? AND password=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
+        $row = $result->fetch_assoc();
         echo "<script>" . "profileName.push('" . $row["name_user"] . "')" . "</script>";
 
         echo "<script>
@@ -36,5 +39,6 @@
             </script>";
     }
 
+    $stmt->close();
     $conn->close();
 ?>

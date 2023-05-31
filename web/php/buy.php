@@ -19,19 +19,20 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id_user FROM cegonha WHERE email='$userEmail'";
-    $result = $conn->query($sql);
+    $sql = "SELECT id_user FROM cegonha WHERE email=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $userEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
     if($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
+        $row = $result->fetch_assoc();
         $id_user = $row["id_user"];
 
-        $sql = "
-            INSERT INTO buy (buyer, name_buyer, price, street, num, district, city, state)
-            VALUES ((SELECT id_user FROM cegonha WHERE id_user='$id_user'), '$name_buyer', '$price', '$street', '$number', '$district', '$city', '$state')
-        ";
-
-        if($conn->query($sql) === TRUE) {
+        $sql = "INSERT INTO buy (buyer, name_buyer, price, street, num, district, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("isssisss", $id_user, $name_buyer, $price, $street, $number, $district, $city, $state);
+        if($stmt->execute()) {
             echo "<script>
                     alertify.success('Comprado com sucesso!');
                     localStorage.removeItem('cart');
@@ -50,5 +51,6 @@
             </script>";
     }
 
+    $stmt->close();
     $conn->close();
 ?>
