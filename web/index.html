@@ -15,17 +15,50 @@
 
 <body class="dark-mode">
     <div class="navbar">
-        <a class="title" href="/loja/web/"><i class="fa-solid fa-dragon fa-xl"></i> Presente da Cegonha</a>
-        <a onclick="displayProducts('Brinquedos')"><i class="fa-solid fa-puzzle-piece"></i> Brinquedos</a>
-        <a onclick="displayProducts('Roupas')"><i class="fa-solid fa-shirt"></i> Roupas</a>
-        <a onclick="displayProducts('Enxoval')"><i class="fa-solid fa-baby-carriage"></i> Enxoval</a>
-        <a onclick="displayProducts('Higiene')"><i class="fa-solid fa-soap"></i> Higiene</a>
-        <a onclick="displayProducts('Saúde')"><i class="fa-solid fa-briefcase-medical"></i> Saúde</a>
-        <a class="others" id="profile" onclick="displayProfile()" style="display: none;"><i class="fa-solid fa-right-to-bracket"></i> Perfil</a>
-        <a class="others" id="login" onclick="displayLogin()"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-        <a class="others" id="cart"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
-        <a class="others" id="dark-mode" onclick="enableDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i> Modo escuro</a>
-        <a class="others" id="cart" onclick="clean()"><i class="fa-solid fa-trash"></i> Limpar localStorage</a>
+        <a class="title" href="#">
+            <i class="fa-solid fa-dragon fa-xl"></i>
+            Presente da Cegonha
+        </a>
+        <a onclick="location.hash = 'brinquedos'">
+            <i class="fa-solid fa-puzzle-piece"></i>
+            Brinquedos
+        </a>
+        <a onclick="location.hash = 'roupas'">
+            <i class="fa-solid fa-shirt"></i>
+            Roupas
+        </a>
+        <a onclick="location.hash = 'enxoval'">
+            <i class="fa-solid fa-baby-carriage"></i>
+            Enxoval
+        </a>
+        <a onclick="location.hash = 'higiene'">
+            <i class="fa-solid fa-soap"></i>
+            Higiene
+        </a>
+        <a onclick="location.hash = 'saude'">
+            <i class="fa-solid fa-briefcase-medical"></i>
+            Saúde
+        </a>
+        <a class="others" id="profile" onclick="location.hash = 'perfil'" style="display: none;">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Perfil
+        </a>
+        <a class="others" id="login" onclick="location.hash = 'login'">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+        </a>
+        <a class="others" id="cart" onclick="location.hash = 'carrinho'">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Carrinho
+        </a>
+        <a class="others" id="dark-mode" onclick="enableDarkMode()">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+            Modo escuro
+        </a>
+        <a class="others" id="cart" onclick="clean()">
+            <i class="fa-solid fa-trash"></i>
+            Limpar localStorage
+        </a>
     </div>
 
     <div id="text" class="dark-mode"></div>

@@ -4,7 +4,7 @@
     
     $servername = "localhost";
     $username = "root";
-    $dbpassword = "123456";
+    $dbpassword = "";
     $dbname = "projeto";
 
     $conn = new mysqli($servername, $username, $dbpassword, $dbname);
@@ -26,7 +26,7 @@
         echo "<script>
                 localStorage.setItem('profileName', JSON.stringify(profileName));
                 alertify.success('Logado com sucesso!');
-                displayProducts();
+                location.hash = '';
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
                 userEmail.push('$email');
@@ -35,7 +35,7 @@
     } else {
         echo "<script>
                 alertify.error('Este usuário não existe');
-                displayProducts();
+                location.hash = '';
             </script>";
     }
 

@@ -1,6 +1,46 @@
 // Made by 1ukidev aka Leozinho
 
 // Startup
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+window.addEventListener('hashchange', () => {
+    switch(this.location.hash) {
+        case "":
+            displayProducts();
+            break;
+        case "#perfil":
+            displayProfile();
+            break;
+        case "#login":
+            displayLogin();
+            break;
+        case "#logup":
+            displayLogup();
+            break;
+        case "#finalizar":
+            displayBuy();
+            break;
+        case "#carrinho":
+            displayCart();
+            break;
+        case "#brinquedos":
+            displayProducts("Brinquedos");
+            break;
+        case "#roupas":
+            displayProducts("Roupas");
+            break;
+        case "#enxoval":
+            displayProducts("Enxoval");
+            break;
+        case "#higiene":
+            displayProducts("Higiene");
+            break;
+        case "#saude":
+            displayProducts("Saúde");
+            break;
+    }
+});
+
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
     document.getElementById("text").classList.remove("dark-mode");
     document.getElementById("text").classList.add("light-mode");
@@ -37,8 +77,6 @@ const loadProducts = () => {
 const displayProducts = (category = null) => {
     main.innerHTML = "";
     others.innerHTML = "";
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const filteredProducts = category ? products.filter(product => product.category === category) : products;
 
     filteredProducts.forEach(product => {
@@ -62,17 +100,12 @@ const displayProducts = (category = null) => {
                 if (e) {
                     cart.push(product);
                     localStorage.setItem("cart", JSON.stringify(cart));
-                    displayCart(cart);
+                    displayCart();
                     alertify.success("Adicionado com sucesso!");
                 }
             }).set({title:"ㅤ"})
               .set({labels: {ok: "Sim", cancel: "Não"}})
               .setting("modal", false)
-        });
-
-        const cartHTML = document.getElementById("cart");
-        cartHTML.addEventListener("click", () => {
-            displayCart(cart);
         });
 
         main.appendChild(productCard);
@@ -81,7 +114,7 @@ const displayProducts = (category = null) => {
 
 loadProducts();
 
-const displayCart = (cart) => {
+const displayCart = () => {
     main.innerHTML = "";
     others.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
@@ -113,7 +146,7 @@ const displayCart = (cart) => {
 
         if (cart.length != 0) {
             others.innerHTML = `
-                <button class="buyButton" onclick="displayBuy()">Finalizar compra</button>
+                <button class="buyButton" onclick="location.hash = 'finalizar'">Finalizar compra</button>
             `;
         }
     }
@@ -192,7 +225,7 @@ const displayLogin = () => {
             <label>Senha:</label>
             <input type="password" id="password" class="loginTexts" required><br><br>
             <input type="submit" id="login" value="Entrar" class="loginButtons"><br><br>
-            <input type="button" id="logup" value="Fazer cadastro" onclick="displayLogup()" class="loginButtons">
+            <input type="button" id="logup" value="Fazer cadastro" onclick="location.hash = 'logup'" class="loginButtons">
         </form>
     `;
 
@@ -227,7 +260,6 @@ const displayLogup = () => {
 
 const estimatePrice = () => {
     let price = 0;
-    const cart = JSON.parse(localStorage.getItem("cart"));
 
     if (cart && Array.isArray(cart)) {
         for (let i = 0; i < cart.length; i++) {
@@ -309,7 +341,7 @@ const numberMask = (event) => {
 
 const clean = () => {
     localStorage.clear();
-    location.href = "/loja/web";
+    location.href = "/";
 }
 
 const displayProfile = () => {
@@ -320,15 +352,17 @@ const displayProfile = () => {
         main.innerHTML = `
             <h2>Usuário não está logado</h2>
         `;
-    } else {
-        text.innerHTML = "<h1>Perfil<h1>";
 
-        main.innerHTML = `
-            <h2>Seu nome: ${profileName[0]}</h2>
-        `;
-
-        others.innerHTML = `
-            <button class="logoutButton" onclick="clean()">Deslogar</button>
-        `;
+        return 1;
     }
+
+    text.innerHTML = "<h1>Perfil<h1>";
+
+    main.innerHTML = `
+        <h2>Seu nome: ${profileName[0]}</h2>
+    `;
+
+    others.innerHTML = `
+        <button class="logoutButton" onclick="clean()">Deslogar</button>
+    `;
 }

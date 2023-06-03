@@ -10,7 +10,7 @@
     
     $servername = "localhost";
     $username = "root";
-    $password = "123456";
+    $password = "";
     $dbname = "projeto";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,18 +36,18 @@
             echo "<script>
                     alertify.success('Comprado com sucesso!');
                     localStorage.removeItem('cart');
-                    displayProducts();
+                    location.hash = '';
                 </script>";
         } else {
             echo "<script>
                     alertify.error('Compra não realizada / Tente mais tarde');
-                    displayProducts();
+                    location.hash = '';
                 </script>";
         }
     } else {
         echo "<script>
                 alertify.error('Compra não realizada / Faça login antes');
-                displayProducts();
+                location.hash = '';
             </script>";
     }
 

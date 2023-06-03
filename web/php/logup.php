@@ -10,7 +10,7 @@
     
     $servername = "localhost";
     $username = "root";
-    $password_db = "123456";
+    $password_db = "";
     $dbname = "projeto";
 
     $conn = new mysqli($servername, $username, $password_db, $dbname);
@@ -34,7 +34,7 @@
                 profileName = [];
                 profileName.push('$name');
                 localStorage.setItem('profileName', JSON.stringify(profileName));
-                displayProducts();
+                location.hash = '';
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
                 userEmail.push('$email');
