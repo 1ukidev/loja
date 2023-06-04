@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="css/default.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/jetbrains.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/jetbrains.css">
 </head>
 
-<body class="dark-mode">
+<body>
     <div class="navbar">
         <a class="title" href="#">
             <i class="fa-solid fa-dragon fa-xl"></i>
@@ -39,7 +39,7 @@
             <i class="fa-solid fa-briefcase-medical"></i>
             Saúde
         </a>
-        <a class="others" id="profile" onclick="location.hash = 'perfil'" style="display: none;">
+        <a class="others" id="profile" onclick="location.hash = 'perfil'">
             <i class="fa-solid fa-right-to-bracket"></i>
             Perfil
         </a>
@@ -51,9 +51,9 @@
             <i class="fa-solid fa-cart-shopping"></i>
             Carrinho
         </a>
-        <a class="others" id="dark-mode" onclick="enableDarkMode()">
+        <a class="others" id="dark-mode" onclick="enableLightMode()">
             <i class="fa-solid fa-circle-half-stroke"></i>
-            Modo escuro
+            Tema
         </a>
         <a class="others" id="cart" onclick="clean()">
             <i class="fa-solid fa-trash"></i>

@@ -4,7 +4,7 @@
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 window.addEventListener('hashchange', () => {
-    switch(this.location.hash) {
+    switch (this.location.hash) {
         case "":
             displayProducts();
             break;
@@ -41,19 +41,30 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    document.getElementById("text").classList.remove("dark-mode");
-    document.getElementById("text").classList.add("light-mode");
-    document.body.classList.remove("dark-mode");
-    document.body.classList.add("light-mode");
-}
+const profileName = JSON.parse(localStorage.getItem("profileName")) || [];
+const userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 
-let profileName = JSON.parse(localStorage.getItem("profileName")) || [];
-let userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "false";
+} else {
+    var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "true";
+}
 
 if (!profileName.length <= 0) {
     document.getElementById("login").style.display = "none";
     document.getElementById("profile").style.display = "block";
+}
+
+if (darkModeisEnable == "false") {
+    document.getElementById("text").classList.remove("dark-mode");
+    document.getElementById("text").classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+} else {
+    document.getElementById("text").classList.remove("light-mode");
+    document.getElementById("text").classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    document.body.classList.add("dark-mode");
 }
 
 // Main
@@ -67,7 +78,9 @@ const loadProducts = () => {
         .then(res => res.json())
         .then(data => {
             products = data;
-            displayProducts();
+            const tmp = this.location.hash;
+            this.location.hash = "loading";
+            this.location.hash = tmp;
         })
         .catch(error => {
             console.error("Erro ao carregar os produtos: ", error);
@@ -144,11 +157,9 @@ const displayCart = () => {
             main.appendChild(productCard);
         });
 
-        if (cart.length != 0) {
-            others.innerHTML = `
-                <button class="buyButton" onclick="location.hash = 'finalizar'">Finalizar compra</button>
-            `;
-        }
+        others.innerHTML = `
+            <button class="buyButton" onclick="location.hash = 'finalizar'">Finalizar compra</button>
+        `;
     }
 }
 
@@ -164,13 +175,13 @@ const displayBuy = () => {
     buyForm.innerHTML = `
         <form action="javascript:finishBuy()">
             <label>Rua:</label>
-            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="street" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-zA-ZÀ-ÿ, ]/.test(event.key)" id="street" class="logupTexts" required><br><br>
             <label>Número:</label>
             <input type="text" oninput="numberMask(event)" id="number" class="logupTexts" required><br><br>
             <label>Bairro:</label>
-            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="district" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-zA-ZÀ-ÿ, ]/.test(event.key)" id="district" class="logupTexts" required><br><br>
             <label>Cidade:</label>
-            <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" id="city" class="logupTexts" required><br><br>
+            <input type="text" onkeydown="return /[a-zA-ZÀ-ÿ, ]/.test(event.key)" id="city" class="logupTexts" required><br><br>
             <label>Estado:</label>
             <select id="state" class="logupTexts" required>
                 <option value="AC">Acre</option>
@@ -244,7 +255,7 @@ const displayLogup = () => {
     logupForm.innerHTML = `
         <form action="javascript:loadLogup()">
             <label>Nome:</label>
-            <input type="text" id="name" class="logupTexts" required><br><br>
+            <input type="text" id="name" onkeydown="return /[a-zA-ZÀ-ÿ, ]/.test(event.key)" class="logupTexts" required><br><br>
             <label>CPF:</label>
             <input type="text" id="cpf" maxlength="14" oninput="cpfMask(event)" placeholder="000.000.000-00" class="logupTexts" required><br><br>
             <label>E-mail:</label>
@@ -302,7 +313,7 @@ const finishBuy = () => {
 }
 
 // Others
-const enableDarkMode = () => {
+const enableLightMode = () => {
     if (text.classList.contains("light-mode")) {
         text.classList.remove("light-mode");
         text.classList.add("dark-mode");
@@ -314,9 +325,11 @@ const enableDarkMode = () => {
     if (document.body.classList.contains("light-mode")) {
         document.body.classList.remove("light-mode");
         document.body.classList.add("dark-mode");
+        localStorage.setItem("darkModeisEnable", "true");
     } else {
         document.body.classList.remove("dark-mode");
         document.body.classList.add("light-mode");
+        localStorage.setItem("darkModeisEnable", "false");
     }
 }
 

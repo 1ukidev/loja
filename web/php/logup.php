@@ -31,7 +31,7 @@
     if ($stmt->execute()) {
         echo "<script>
                 alertify.success('Cadastro com sucesso!');
-                profileName = [];
+                while (profileName.length) { profileName.pop(); }
                 profileName.push('$name');
                 localStorage.setItem('profileName', JSON.stringify(profileName));
                 location.hash = '';
