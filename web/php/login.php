@@ -27,9 +27,6 @@ if ($result->num_rows > 0) {
         echo "<script>
                 while (profileName.length) { profileName.pop(); }
                 profileName.push('" . $row["name_user"] . "')
-            </script>";
-
-        echo "<script>
                 localStorage.setItem('profileName', JSON.stringify(profileName));
                 alertify.success('Logado com sucesso!');
                 location.hash = '';
