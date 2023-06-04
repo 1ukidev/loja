@@ -44,15 +44,15 @@ window.addEventListener('hashchange', () => {
 const profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 const userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 
+if (!profileName.length <= 0) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("profile").style.display = "block";
+}
+
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
     var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "false";
 } else {
     var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "true";
-}
-
-if (!profileName.length <= 0) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("profile").style.display = "block";
 }
 
 if (darkModeisEnable == "false") {
