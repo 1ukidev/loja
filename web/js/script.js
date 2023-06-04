@@ -313,7 +313,7 @@ const finishBuy = () => {
 }
 
 // Others
-const enableLightMode = () => {
+const changeTheme = () => {
     if (text.classList.contains("light-mode")) {
         text.classList.remove("light-mode");
         text.classList.add("dark-mode");
