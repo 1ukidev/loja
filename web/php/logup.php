@@ -7,7 +7,8 @@
 
     $email = $_POST["email"];
     $password = $_POST["password"];
-    
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
     $servername = "localhost";
     $username = "root";
     $password_db = "";
@@ -26,7 +27,7 @@
         die("Error: " . $conn->error);
     }
 
-    $stmt->bind_param("ssss", $name, $email, $password, $cpf);
+    $stmt->bind_param("ssss", $name, $email, $hash, $cpf);
 
     if ($stmt->execute()) {
         echo "<script>

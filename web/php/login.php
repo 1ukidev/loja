@@ -1,26 +1,29 @@
 <?php
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    
-    $servername = "localhost";
-    $username = "root";
-    $dbpassword = "";
-    $dbname = "projeto";
+$email = $_POST["email"];
+$password = $_POST["password"];
 
-    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+$servername = "localhost";
+$username = "root";
+$password_db = "";
+$dbname = "projeto";
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+$conn = new mysqli($servername, $username, $password_db, $dbname);
 
-    $sql = "SELECT name_user, email, password FROM cegonha WHERE email=? AND password=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+$sql = "SELECT name_user, email, password FROM cegonha WHERE email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $hashedPassword = $row["password"];
+
+    if (password_verify($password, $hashedPassword)) {
         echo "<script>
                 while (profileName.length) { profileName.pop(); }
                 profileName.push('" . $row["name_user"] . "')
@@ -37,11 +40,17 @@
             </script>";
     } else {
         echo "<script>
-                alertify.error('Este usuário não existe');
+                alertify.error('Senha incorreta');
                 location.hash = '';
             </script>";
     }
+} else {
+    echo "<script>
+            alertify.error('Este usuário não existe');
+            location.hash = '';
+        </script>";
+}
 
-    $stmt->close();
-    $conn->close();
+$stmt->close();
+$conn->close();
 ?>
