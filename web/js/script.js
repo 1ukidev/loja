@@ -354,7 +354,7 @@ const numberMask = (event) => {
 
 const clean = () => {
     localStorage.clear();
-    location.href = "/";
+    location.href = "/loja/web";
 }
 
 const displayProfile = () => {
