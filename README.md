@@ -7,4 +7,4 @@ Em desenvolvimento...
 - Melhorar tratamento de erros
 - Adicionar mais produtos
 - Melhorar design
-- Adicionar opção para ver quais compras foram feitas
+- Assinar alguns dados por segurança
