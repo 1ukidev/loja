@@ -29,7 +29,7 @@
                     profileName.push('" . $row["name_user"] . "')
                     localStorage.setItem('profileName', JSON.stringify(profileName));
                     alertify.success('Logado com sucesso!');
-                    location.hash = '';
+                    changeHash('');
                     document.getElementById('login').remove();
                     document.getElementById('profile').style.display = 'block';
                     userEmail.push('$email');
@@ -38,13 +38,13 @@
         } else {
             echo "<script>
                     alertify.error('Senha incorreta');
-                    location.hash = '';
+                    changeHash('');
                 </script>";
         }
     } else {
         echo "<script>
                 alertify.error('Este usuário não existe');
-                location.hash = '';
+                changeHash('');
             </script>";
     }
 

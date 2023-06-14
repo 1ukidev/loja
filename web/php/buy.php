@@ -34,20 +34,20 @@
         $stmt->bind_param("isssisss", $id_user, $name_buyer, $price, $street, $number, $district, $city, $state);
         if($stmt->execute()) {
             echo "<script>
-                    alertify.success('Comprado com sucesso!');
+                    alertify.success('Comprado com sucesso! Veja o seu e-mail para mais detalhes');
                     localStorage.removeItem('cart');
-                    location.hash = '';
+                    changeHash('');
                 </script>";
         } else {
             echo "<script>
                     alertify.error('Compra não realizada / Tente mais tarde');
-                    location.hash = '';
+                    changeHash('');
                 </script>";
         }
     } else {
         echo "<script>
                 alertify.error('Compra não realizada / Faça login antes');
-                location.hash = '';
+                changeHash('');
             </script>";
     }
 

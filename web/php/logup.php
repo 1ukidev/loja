@@ -35,7 +35,7 @@
                 while (profileName.length) { profileName.pop(); }
                 profileName.push('$name');
                 localStorage.setItem('profileName', JSON.stringify(profileName));
-                location.hash = '';
+                changeHash('');
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
                 userEmail.push('$email');
