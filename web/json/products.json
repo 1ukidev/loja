@@ -47,5 +47,12 @@
         "name": "Avião de brinquedo",
         "img": "img/mundo-de-bita-brinquedo-16.png",
         "price": "R$45"
+    },
+    {
+        "id": 7,
+        "category": "Higiene",
+        "name": "Shampoo Huggies",
+        "img": "img/shampoo-huggies.png",
+        "price": "R$40"
     }
 ]
