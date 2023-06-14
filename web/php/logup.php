@@ -39,6 +39,7 @@
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
                 userEmail.push('$email');
+                const emailSignature = createSignature('$email', secretKey);
                 localStorage.setItem('userEmail', JSON.stringify(userEmail));
             </script>";
     } else {
