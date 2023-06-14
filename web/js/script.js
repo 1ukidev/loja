@@ -3,8 +3,12 @@
 // Startup
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+const changeHash = (hash) => {
+    return location.hash = hash;
+}
+
 window.addEventListener('hashchange', () => {
-    switch (this.location.hash) {
+    switch (location.hash) {
         case "":
             displayProducts();
             break;
@@ -43,6 +47,7 @@ window.addEventListener('hashchange', () => {
 
 const profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 const userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
+let darkModeisEnable;
 
 if (!profileName.length <= 0) {
     document.getElementById("login").style.display = "none";
@@ -50,12 +55,12 @@ if (!profileName.length <= 0) {
 }
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "false";
+    darkModeisEnable = localStorage.getItem("darkModeisEnable") || "false";
 } else {
-    var darkModeisEnable = localStorage.getItem("darkModeisEnable") || "true";
+    darkModeisEnable = localStorage.getItem("darkModeisEnable") || "true";
 }
 
-if (darkModeisEnable == "false") {
+if (darkModeisEnable === "false") {
     document.getElementById("text").classList.remove("dark-mode");
     document.getElementById("text").classList.add("light-mode");
     document.body.classList.remove("dark-mode");
@@ -78,9 +83,9 @@ const loadProducts = () => {
         .then(res => res.json())
         .then(data => {
             products = data;
-            const tmp = this.location.hash;
-            this.location.hash = "loading";
-            this.location.hash = tmp;
+            const tmp = location.hash;
+            changeHash("loading");
+            changeHash(tmp);
         })
         .catch(error => {
             console.error("Erro ao carregar os produtos: ", error);
@@ -96,7 +101,7 @@ const displayProducts = (category = null) => {
         const productCard = document.createElement("div");
         productCard.setAttribute("product-id", product.id);
 
-        if (category == null) {
+        if (category === null) {
             text.innerHTML = `<h1>Principais produtos:</h1>`;
         } else {
             text.innerHTML = `<h1>Principais produtos em ${product.category}:</h1>`;
@@ -132,7 +137,7 @@ const displayCart = () => {
     others.innerHTML = "";
     text.innerHTML = "<h1>Carrinho:</h1>";
 
-    if (cart.length == 0) {
+    if (cart.length === 0) {
         const productCard = document.createElement("div");
         productCard.style.cursor = "auto";
         productCard.style.userSelect = "text";
@@ -158,7 +163,7 @@ const displayCart = () => {
         });
 
         others.innerHTML = `
-            <button class="buyButton" onclick="location.hash = 'finalizar'">Finalizar compra</button>
+            <button class="buyButton" onclick="changeHash('finalizar')">Finalizar compra</button>
         `;
     }
 }
@@ -167,6 +172,26 @@ const displayBuy = () => {
     main.innerHTML = "";
     text.innerHTML = "";
     others.innerHTML = "";
+
+    if (localStorage.getItem("cart") === null) {
+        main.innerHTML = "<h2>Você não colocou nenhum produto no carrinho</h2>"
+
+        others.innerHTML = `
+            <button class="buyButton" onclick="location.href = '/loja/web'">Voltar para o início</button>
+        `;
+
+        return console.error("Não há nada no carrinho");
+    }
+
+    if (localStorage.getItem("userEmail") === null) {
+        main.innerHTML = "<h2>Você não está logado</h2>"
+
+        others.innerHTML = `
+            <button class="buyButton" onclick="changeHash('login')">Fazer login</button>
+        `;
+
+        return console.error("Usuário não está logado");
+    }
 
     const buyForm = document.createElement("div");
     buyForm.style.cursor = "auto";
@@ -236,7 +261,7 @@ const displayLogin = () => {
             <label>Senha:</label>
             <input type="password" id="password" class="loginTexts" required><br><br>
             <input type="submit" id="login" value="Entrar" class="loginButtons"><br><br>
-            <input type="button" id="logup" value="Fazer cadastro" onclick="location.hash = 'logup'" class="loginButtons">
+            <input type="button" id="logup" value="Fazer cadastro" onclick="changeHash('logup')" class="loginButtons">
         </form>
     `;
 
@@ -361,15 +386,21 @@ const displayProfile = () => {
     text.innerHTML = "";
     others.innerHTML = "";
 
-    if(profileName[0] == undefined) {
+    if (profileName[0] === undefined) {
         main.innerHTML = `
-            <h2>Usuário não está logado</h2>
+            <h2>Você não está logado</h2>
         `;
 
-        return 1;
+        others.innerHTML = `
+            <button class="buyButton" onclick="changeHash('loading'); changeHash('login')">
+                Fazer login
+            </button>
+        `;
+
+        return console.error("Usuário não está logado");
     }
 
-    text.innerHTML = "<h1>Perfil<h1>";
+    text.innerHTML = "<h1>Perfil</h1>";
 
     main.innerHTML = `
         <h2>Seu nome: ${profileName[0]}</h2>
@@ -379,3 +410,16 @@ const displayProfile = () => {
         <button class="logoutButton" onclick="clean()">Deslogar</button>
     `;
 }
+
+// Experimental
+const createSignature = (data, secretKey) => {
+    const signature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
+    return signature;
+}
+
+const verifySignature = (data, signature, secretKey) => {
+    const calcSignature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
+    return signature === calcSignature;
+}
+
+const secretKey = "cjr4-032x";
