@@ -134,6 +134,8 @@ const displayProducts = (category = null) => {
                     localStorage.setItem("cart", JSON.stringify(cart));
                     displayCart();
                     alertify.success("Adicionado com sucesso!");
+                } else {
+                    console.error("Algo deu errado");
                 }
             }).set({title:"ㅤ"})
               .set({labels: {ok: "Sim", cancel: "Não"}})
