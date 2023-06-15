@@ -327,14 +327,6 @@ const estimatePrice = () => {
 }
 
 const loadLogin = () => {
-    emailHash = createSignature($("#email").val(), secretKey);
-
-    if (emailHash) {
-        localStorage.setItem('emailHash', emailHash);
-    } else {
-        return console.error("Algo deu errado");
-    }
-    
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
         'password': $("#password").val()
