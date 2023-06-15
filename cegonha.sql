@@ -1,8 +1,9 @@
 CREATE TABLE cegonha (
     id_user INT AUTO_INCREMENT NOT NULL,
-    name_user VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    name_user VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    hash_email VARCHAR(64) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     cpf VARCHAR(11) NOT NULL,
     PRIMARY KEY(id_user)
 );
@@ -22,8 +23,3 @@ CREATE TABLE buy (
     FOREIGN KEY (buyer) REFERENCES cegonha(id_user)
     ON DELETE CASCADE
 );
-    
-SELECT c.id_user,c.name_user,c.email,b.name_buyer,b.category,b.price,b.street,b.number,b.district,b.city,b.state
-from cegonha AS c 
-RIGHT JOIN buy AS b 
-ON c.id_user = b.id_order;

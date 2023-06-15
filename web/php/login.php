@@ -10,7 +10,7 @@
     $conn = new mysqli($servername, $username, $password_db, $dbname);
 
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("Conexão falhou: " . $conn->connect_error);
     }
 
     $sql = "SELECT name_user, email, password FROM cegonha WHERE email=?";
@@ -32,8 +32,8 @@
                     changeHash('');
                     document.getElementById('login').remove();
                     document.getElementById('profile').style.display = 'block';
+                    while (userEmail.length) { userEmail.pop(); }
                     userEmail.push('$email');
-                    const emailSignature = createSignature('$email', secretKey);
                     localStorage.setItem('userEmail', JSON.stringify(userEmail));
                 </script>";
         } else {

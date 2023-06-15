@@ -47,6 +47,7 @@ window.addEventListener('hashchange', () => {
 
 const profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 const userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
+let emailHash = localStorage.getItem('emailHash') || null;
 let darkModeisEnable;
 
 if (!profileName.length <= 0) {
@@ -71,6 +72,19 @@ if (darkModeisEnable === "false") {
     document.body.classList.remove("light-mode");
     document.body.classList.add("dark-mode");
 }
+
+// Crypto
+const createSignature = (data, secretKey) => {
+    const signature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
+    return signature;
+}
+
+const verifySignature = (data, signature, secretKey) => {
+    const calcSignature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
+    return signature === calcSignature;
+}
+
+const secretKey = "cjr4-032x";
 
 // Main
 const main = document.getElementById("main");
@@ -177,7 +191,9 @@ const displayBuy = () => {
         main.innerHTML = "<h2>Você não colocou nenhum produto no carrinho</h2>"
 
         others.innerHTML = `
-            <button class="buyButton" onclick="location.href = '/loja/web'">Voltar para o início</button>
+            <button class="buyButton" onclick="changeHash('loading'); changeHash('')">
+                Voltar para o início
+            </button>
         `;
 
         return console.error("Não há nada no carrinho");
@@ -309,6 +325,14 @@ const estimatePrice = () => {
 }
 
 const loadLogin = () => {
+    emailHash = createSignature($("#email").val(), secretKey);
+
+    if (emailHash) {
+        localStorage.setItem('emailHash', emailHash);
+    } else {
+        return console.error("Algo deu errado");
+    }
+    
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
         'password': $("#password").val()
@@ -316,15 +340,38 @@ const loadLogin = () => {
 }
 
 const loadLogup = () => {
+    emailHash = createSignature($("#email").val(), secretKey);
+
+    if (emailHash) {
+        localStorage.setItem('emailHash', emailHash);
+    } else {
+        return console.error("Algo deu errado");
+    }
+
     $('#main').load("php/logup.php", {
         'name': $("#name").val(),
         'cpf': $("#cpf").val(),
         'email': $("#email").val(),
+        'hash_email': emailHash,
         'password': $("#password").val()
     });
 }
 
 const finishBuy = () => {
+    if (!(localStorage.getItem('emailHash') === emailHash)) {
+        main.innerHTML = `
+            <h2>Há algo de errado com seus dados, tente fazer login novamente</h2>
+        `;
+
+        others.innerHTML = `
+            <button class="buyButton" onclick="clean()">
+                Deslogar
+            </button>
+        `;
+
+        return console.error("A verificação do hash retornou um valor incorreto");
+    }
+
     $('#main').load("php/buy.php", {
         'street': $("#street").val(),
         'number': $("#number").val(),
@@ -410,16 +457,3 @@ const displayProfile = () => {
         <button class="logoutButton" onclick="clean()">Deslogar</button>
     `;
 }
-
-// Experimental
-const createSignature = (data, secretKey) => {
-    const signature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
-    return signature;
-}
-
-const verifySignature = (data, signature, secretKey) => {
-    const calcSignature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
-    return signature === calcSignature;
-}
-
-const secretKey = "cjr4-032x";
