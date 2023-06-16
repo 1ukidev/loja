@@ -41,6 +41,7 @@
             if($stmt->execute()) {
                 echo "<script>
                         alertify.success('Comprado com sucesso! Veja o seu e-mail para mais detalhes');
+                        while (cart.length) { cart.pop(); }
                         localStorage.removeItem('cart');
                         changeHash('');
                     </script>";
