@@ -5,8 +5,9 @@
     $city = $_POST["city"];
     $state = $_POST["state"];
     $userEmail = $_POST["userEmail"];
-    $hash_email = $_POST["hash_email"];
+    $emailHash = $_POST["emailHash"];
     $name_buyer = $_POST["profileName"];
+    $nameHash = $_POST["nameHash"];
     $price = $_POST["price"];
     
     $servername = "localhost";
@@ -20,7 +21,7 @@
         die("Conexão falhou: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id_user, hash_email FROM cegonha WHERE email=?";
+    $sql = "SELECT id_user, hash_email, hash_name FROM cegonha WHERE email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $userEmail);
     $stmt->execute();
@@ -30,11 +31,13 @@
         $row = $result->fetch_assoc();
         $id_user = $row["id_user"];
         $stored_hash_email = $row["hash_email"];
+        $stored_hash_name = $row["hash_name"];
 
-        if ($stored_hash_email === $hash_email) {
+        if ($stored_hash_email === $emailHash && $stored_hash_name === $nameHash) {
             $sql = "INSERT INTO buy (buyer, name_buyer, price, street, num, district, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("isssisss", $id_user, $name_buyer, $price, $street, $number, $district, $city, $state);
+            
             if($stmt->execute()) {
                 echo "<script>
                         alertify.success('Comprado com sucesso! Veja o seu e-mail para mais detalhes');
@@ -49,7 +52,7 @@
             }
         } else {
             echo "<script>
-                    alertify.error('Compra não realizada / Hash de e-mail inválido');
+                    alertify.error('Compra não realizada / Hash do e-mail ou nome inválido');
                     changeHash('');
                 </script>";
         }

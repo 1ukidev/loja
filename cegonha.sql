@@ -1,6 +1,7 @@
 CREATE TABLE cegonha (
     id_user INT AUTO_INCREMENT NOT NULL,
     name_user VARCHAR(255) NOT NULL,
+    hash_name VARCHAR(64) NOT NULL,
     email VARCHAR(255) NOT NULL,
     hash_email VARCHAR(64) NOT NULL,
     password VARCHAR(60) NOT NULL,

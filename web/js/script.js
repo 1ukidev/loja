@@ -48,6 +48,7 @@ window.addEventListener('hashchange', () => {
 const profileName = JSON.parse(localStorage.getItem("profileName")) || [];
 const userEmail = JSON.parse(localStorage.getItem("userEmail")) || [];
 let emailHash = localStorage.getItem('emailHash') || null;
+let nameHash = localStorage.getItem('nameHash') || null;
 let darkModeisEnable;
 
 if (!profileName.length <= 0) {
@@ -348,6 +349,7 @@ const loadLogin = () => {
 
 const loadLogup = () => {
     emailHash = createSignature($("#email").val(), secretKey);
+    nameHash = createSignature($("#name").val(), secretKey);
 
     if (emailHash) {
         localStorage.setItem('emailHash', emailHash);
@@ -357,11 +359,20 @@ const loadLogup = () => {
         return console.error("Hash de e-mail inválido");
     }
 
+    if (nameHash) {
+        localStorage.setItem('nameHash', nameHash);
+    } else {
+        alertify.error("Hash de nome inválido");
+        changeHash("");
+        return console.error("Hash de nome inválido");
+    }
+
     $('#main').load("php/logup.php", {
         'name': $("#name").val(),
         'cpf': $("#cpf").val(),
         'email': $("#email").val(),
-        'hash_email': emailHash,
+        'emailHash': emailHash,
+        'nameHash': nameHash,
         'password': $("#password").val()
     });
 }
@@ -374,10 +385,11 @@ const finishBuy = () => {
         'city': $("#city").val(),
         'state': $("#state").val(),
         'userEmail': userEmail[0],
-        'hash_email': emailHash,
+        'emailHash': emailHash,
         'profileName': profileName[0],
+        'nameHash': nameHash,
         'price': estimatePrice(),
-    })
+    });
 }
 
 // Others

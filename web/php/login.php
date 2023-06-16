@@ -13,7 +13,7 @@
         die("Conexão falhou: " . $conn->connect_error);
     }
 
-    $sql = "SELECT name_user, email, password FROM cegonha WHERE email=?";
+    $sql = "SELECT name_user, hash_name, email, password FROM cegonha WHERE email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -22,6 +22,7 @@
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $hashedPassword = $row["password"];
+        $stored_hash_name = $row["hash_name"];
 
         if (password_verify($password, $hashedPassword)) {
             echo "<script>
@@ -35,6 +36,8 @@
                     while (userEmail.length) { userEmail.pop(); }
                     userEmail.push('$email');
                     localStorage.setItem('userEmail', JSON.stringify(userEmail));
+                    localStorage.setItem('nameHash', '$stored_hash_name');
+                    nameHash = '$stored_hash_name';
                 </script>";
         } else {
             echo "<script>

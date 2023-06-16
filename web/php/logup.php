@@ -6,7 +6,8 @@
     $cpf = str_replace("-", "", $cpf);
 
     $email = $_POST["email"];
-    $hash_email = $_POST["hash_email"];
+    $emailHash = $_POST["emailHash"];
+    $nameHash = $_POST["nameHash"];
     $password = $_POST["password"];
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -37,14 +38,14 @@
         exit();
     }
 
-    $sql = "INSERT INTO cegonha (name_user, email, hash_email, password, cpf) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO cegonha (name_user, hash_name, email, hash_email, password, cpf) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
         die("Erro: " . $conn->error);
     }
 
-    $stmt->bind_param("sssss", $name, $email, $hash_email, $hash, $cpf);
+    $stmt->bind_param("ssssss", $name, $nameHash, $email, $emailHash, $hash, $cpf);
 
     if ($stmt->execute()) {
         echo "<script>
