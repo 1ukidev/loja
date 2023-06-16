@@ -378,6 +378,16 @@ const loadLogup = () => {
 }
 
 const finishBuy = () => {
+    nameHash = createSignature(profileName[0], secretKey);
+
+    if (nameHash) {
+        localStorage.setItem('nameHash', nameHash);
+    } else {
+        alertify.error("Hash de nome inválido");
+        changeHash("");
+        return console.error("Hash de nome inválido");
+    }
+
     $('#main').load("php/buy.php", {
         'street': $("#street").val(),
         'number': $("#number").val(),
