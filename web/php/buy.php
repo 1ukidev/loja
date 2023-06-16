@@ -23,6 +23,11 @@
 
     $sql = "SELECT id_user, hash_email, hash_name FROM cegonha WHERE email=?";
     $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        die("Erro: " . $conn->error);
+    }
+
     $stmt->bind_param("s", $userEmail);
     $stmt->execute();
     $result = $stmt->get_result();

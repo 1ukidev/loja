@@ -15,6 +15,11 @@
 
     $sql = "SELECT name_user, hash_name, email, password FROM cegonha WHERE email=?";
     $stmt = $conn->prepare($sql);
+    
+    if (!$stmt) {
+        die("Erro: " . $conn->error);
+    }
+    
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
