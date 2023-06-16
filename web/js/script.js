@@ -131,19 +131,26 @@ const displayProducts = (category = null) => {
 
         productCard.addEventListener("click", () => {
             alertify.confirm("Deseja adicionar ao carrinho?", (e) => {
-                if (e) {
-                    cart.push(product);
-                    localStorage.setItem("cart", JSON.stringify(cart));
-                    changeHash("carrinho");
-                    alertify.success("Adicionado com sucesso!");
-                } else {
-                    alertify.error("Não foi possível adicionar ao carrinho / Tente mais tarde");
-                    changeHash("");
-                    console.error("Não foi possível adicionar ao carrinho");
-                }
-            }).set({title:"ㅤ"})
-              .set({labels: {ok: "Sim", cancel: "Não"}})
-              .setting("modal", false)
+                    if (e) {
+                        cart.push(product);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        changeHash("carrinho");
+                        alertify.success("Adicionado com sucesso!");
+                    } else {
+                        alertify.error("Não foi possível adicionar ao carrinho / Tente mais tarde");
+                        changeHash("");
+                        console.error("Não foi possível adicionar ao carrinho");
+                    }
+                }).set({
+                    title: "ㅤ"
+                })
+                .set({
+                    labels: {
+                        ok: "Sim",
+                        cancel: "Não"
+                    }
+                })
+                .setting("modal", false)
         });
 
         main.appendChild(productCard);
