@@ -102,6 +102,7 @@ const loadProducts = () => {
             changeHash(tmp);
         })
         .catch(error => {
+            alertify.error("Erro ao carregar os produtos / Tente recarregar a página");
             console.error("Erro ao carregar os produtos: ", error);
         });
 }
@@ -132,10 +133,12 @@ const displayProducts = (category = null) => {
                 if (e) {
                     cart.push(product);
                     localStorage.setItem("cart", JSON.stringify(cart));
-                    displayCart();
+                    changeHash("carrinho");
                     alertify.success("Adicionado com sucesso!");
                 } else {
-                    console.error("Algo deu errado");
+                    alertify.error("Não foi possível adicionar ao carrinho / Tente mais tarde");
+                    changeHash("");
+                    console.error("Não foi possível adicionar ao carrinho");
                 }
             }).set({title:"ㅤ"})
               .set({labels: {ok: "Sim", cancel: "Não"}})
@@ -332,7 +335,9 @@ const loadLogin = () => {
     if (emailHash) {
         localStorage.setItem('emailHash', emailHash);
     } else {
-        return console.error("Algo deu errado");
+        alertify.error("Hash de e-mail inválido");
+        changeHash("");
+        return console.error("Hash de e-mail inválido");
     }
 
     $('#main').load("php/login.php", {
@@ -347,7 +352,9 @@ const loadLogup = () => {
     if (emailHash) {
         localStorage.setItem('emailHash', emailHash);
     } else {
-        return console.error("Algo deu errado");
+        alertify.error("Hash de e-mail inválido");
+        changeHash("");
+        return console.error("Hash de e-mail inválido");
     }
 
     $('#main').load("php/logup.php", {
@@ -360,20 +367,6 @@ const loadLogup = () => {
 }
 
 const finishBuy = () => {
-    if (!(localStorage.getItem('emailHash') === emailHash)) {
-        main.innerHTML = `
-            <h2>Há algo de errado com seus dados, tente fazer login novamente</h2>
-        `;
-
-        others.innerHTML = `
-            <button class="buyButton" onclick="clean()">
-                Deslogar
-            </button>
-        `;
-
-        return console.error("A verificação do hash retornou um valor incorreto");
-    }
-
     $('#main').load("php/buy.php", {
         'street': $("#street").val(),
         'number': $("#number").val(),
@@ -381,6 +374,7 @@ const finishBuy = () => {
         'city': $("#city").val(),
         'state': $("#state").val(),
         'userEmail': userEmail[0],
+        'hash_email': emailHash,
         'profileName': profileName[0],
         'price': estimatePrice(),
     })
@@ -428,7 +422,7 @@ const numberMask = (event) => {
 
 const clean = () => {
     localStorage.clear();
-    location.href = "/loja/web";
+    location.href = "/";
 }
 
 const displayProfile = () => {
