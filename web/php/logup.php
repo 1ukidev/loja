@@ -1,4 +1,37 @@
 <?php
+    function connectToDatabase() {
+        $servername = "localhost";
+        $username = "root";
+        $password_db = "123456";
+        $dbname = "projeto";
+
+        $conn = new mysqli($servername, $username, $password_db, $dbname);
+
+        if ($conn->connect_error) {
+            die("Conexão falhou: " . $conn->connect_error);
+        }
+
+        return $conn;
+    }
+
+    function checkExistingUser($conn, $email, $cpf) {
+        $existingUserQuery = "SELECT id_user FROM cegonha WHERE email=? OR cpf=?";
+        $existingUserStmt = $conn->prepare($existingUserQuery);
+        $existingUserStmt->bind_param("ss", $email, $cpf);
+        $existingUserStmt->execute();
+        $existingUserResult = $existingUserStmt->get_result();
+        $existingUserStmt->close();
+
+        return $existingUserResult->num_rows > 0;
+    }
+
+    $requiredFields = ["name", "cpf", "email", "emailHash", "nameHash", "password"];
+    foreach ($requiredFields as $field) {
+        if (!isset($_POST[$field])) {
+            die("Erro: O campo '$field' é obrigatório");
+        }
+    }
+
     $name = $_POST["name"];
 
     $cpf = $_POST["cpf"];
@@ -11,29 +44,13 @@
     $password = $_POST["password"];
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $servername = "localhost";
-    $username = "root";
-    $password_db = "123456";
-    $dbname = "projeto";
+    $conn = connectToDatabase();
 
-    $conn = new mysqli($servername, $username, $password_db, $dbname);
-
-    if ($conn->connect_error) {
-        die("Conexão falhou: " . $conn->connect_error);
-    }
-
-    $existingUserQuery = "SELECT id_user FROM cegonha WHERE email=? OR cpf=?";
-    $existingUserStmt = $conn->prepare($existingUserQuery);
-    $existingUserStmt->bind_param("ss", $email, $cpf);
-    $existingUserStmt->execute();
-    $existingUserResult = $existingUserStmt->get_result();
-
-    if ($existingUserResult->num_rows > 0) {
+    if (checkExistingUser($conn, $email, $cpf)) {
         echo "<script>
                 changeHash('');
                 alertify.error('Este usuário já está cadastrado');
             </script>";
-        $existingUserStmt->close();
         $conn->close();
         exit();
     }
@@ -49,16 +66,18 @@
 
     if ($stmt->execute()) {
         echo "<script>
-                alertify.success('Cadastro com sucesso!');
                 while (profileName.length) { profileName.pop(); }
                 profileName.push('$name');
                 localStorage.setItem('profileName', JSON.stringify(profileName));
-                changeHash('');
                 document.getElementById('login').remove();
                 document.getElementById('profile').style.display = 'block';
+                
                 while (userEmail.length) { userEmail.pop(); }
                 userEmail.push('$email');
                 localStorage.setItem('userEmail', JSON.stringify(userEmail));
+
+                changeHash('');
+                alertify.success('Cadastro com sucesso!');
             </script>";
     } else {
         echo "Erro: " . $stmt->error;

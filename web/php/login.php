@@ -1,48 +1,70 @@
 <?php
+    function connectToDatabase() {
+        $servername = "localhost";
+        $username = "root";
+        $password_db = "123456";
+        $dbname = "projeto";
+
+        $conn = new mysqli($servername, $username, $password_db, $dbname);
+
+        if ($conn->connect_error) {
+            die("Conexão falhou: " . $conn->connect_error);
+        }
+
+        return $conn;
+    }
+
+    function getUserData($conn, $email) {
+        $sql = "SELECT name_user, hash_name, email, password FROM cegonha WHERE email=?";
+        $stmt = $conn->prepare($sql);
+
+        if (!$stmt) {
+            die("Erro: " . $conn->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        return $result->fetch_assoc();
+    }
+
+    $requiredFields = ["email", "password"];
+    foreach ($requiredFields as $field) {
+        if (!isset($_POST[$field])) {
+            die("Erro: O campo '$field' é obrigatório");
+        }
+    }
+
     $email = $_POST["email"];
     $password = $_POST["password"];
-
-    $servername = "localhost";
-    $username = "root";
-    $password_db = "123456";
-    $dbname = "projeto";
-
-    $conn = new mysqli($servername, $username, $password_db, $dbname);
-
-    if ($conn->connect_error) {
-        die("Conexão falhou: " . $conn->connect_error);
-    }
-
-    $sql = "SELECT name_user, hash_name, email, password FROM cegonha WHERE email=?";
-    $stmt = $conn->prepare($sql);
     
-    if (!$stmt) {
-        die("Erro: " . $conn->error);
-    }
-    
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $conn = connectToDatabase();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $hashedPassword = $row["password"];
-        $stored_hash_name = $row["hash_name"];
+    $userData = getUserData($conn, $email);
+
+    if($userData) {
+        $hashedPassword = $userData["password"];
+        $stored_hash_name = $userData["hash_name"];
 
         if (password_verify($password, $hashedPassword)) {
             echo "<script>
                     while (profileName.length) { profileName.pop(); }
-                    profileName.push('" . $row["name_user"] . "')
+                    profileName.push('" . $userData["name_user"] . "')
                     localStorage.setItem('profileName', JSON.stringify(profileName));
-                    alertify.success('Logado com sucesso!');
-                    changeHash('');
                     document.getElementById('login').remove();
                     document.getElementById('profile').style.display = 'block';
+                    
                     while (userEmail.length) { userEmail.pop(); }
                     userEmail.push('$email');
                     localStorage.setItem('userEmail', JSON.stringify(userEmail));
+
                     localStorage.setItem('nameHash', '$stored_hash_name');
                     nameHash = '$stored_hash_name';
+                    
+                    changeHash('');
+                    alertify.success('Logado com sucesso!');
                 </script>";
         } else {
             echo "<script>
@@ -57,6 +79,5 @@
             </script>";
     }
 
-    $stmt->close();
     $conn->close();
 ?>
