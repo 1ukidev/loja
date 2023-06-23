@@ -61,7 +61,7 @@
                     localStorage.setItem('userEmail', JSON.stringify(userEmail));
 
                     emailHash = createSignature('$email', secretKey);
-                    if (!emailHash) {
+                    if (emailHash) {
                         localStorage.setItem('emailHash', emailHash);
                         localStorage.setItem('nameHash', '$stored_hash_name');
                         nameHash = '$stored_hash_name';
