@@ -85,7 +85,7 @@
             }
         } else {
             echo "<script>
-                    alertify.error('Compra não realizada / Hash do e-mail ou nome inválido');
+                    alertify.error('Compra não realizada / Hash inválido');
                     changeHash('');
                 </script>";
         }

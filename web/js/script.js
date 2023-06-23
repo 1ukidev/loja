@@ -80,11 +80,6 @@ const createSignature = (data, secretKey) => {
     return signature;
 }
 
-const verifySignature = (data, signature, secretKey) => {
-    const calcSignature = CryptoJS.HmacSHA256(data, secretKey).toString(CryptoJS.enc.Hex);
-    return signature === calcSignature;
-}
-
 const secretKey = "cjr4-032x";
 
 // Main
@@ -216,7 +211,7 @@ const displayBuy = () => {
         main.innerHTML = "<h2>Você não está logado</h2>"
 
         others.innerHTML = `
-            <button class="buyButton" onclick="changeHash('login')">Fazer login</button>
+            <button class="buyButton" onclick="changeHash('loading'); changeHash('login')">Fazer login</button>
         `;
 
         return console.error("Usuário não está logado");
@@ -323,31 +318,7 @@ const displayLogup = () => {
     main.appendChild(logupForm);
 }
 
-const estimatePrice = () => {
-    let price = 0;
-
-    if (cart && Array.isArray(cart)) {
-        for (let i = 0; i < cart.length; i++) {
-            if (cart[i] && cart[i].price) {
-                price += parseInt(cart[i].price.slice(2));
-            }
-        }
-    }
-
-    return price;
-}
-
 const loadLogin = () => {
-    emailHash = createSignature($("#email").val(), secretKey);
-
-    if (emailHash) {
-        localStorage.setItem('emailHash', emailHash);
-    } else {
-        alertify.error("Hash de e-mail inválido");
-        changeHash("");
-        return console.error("Hash de e-mail inválido");
-    }
-
     $('#main').load("php/login.php", {
         'email': $("#email").val(),
         'password': $("#password").val()
@@ -409,6 +380,35 @@ const finishBuy = () => {
     });
 }
 
+const displayProfile = () => {
+    text.innerHTML = "";
+    others.innerHTML = "";
+
+    if (profileName[0] === undefined) {
+        main.innerHTML = `
+            <h2>Você não está logado</h2>
+        `;
+
+        others.innerHTML = `
+            <button class="buyButton" onclick="changeHash('loading'); changeHash('login')">
+                Fazer login
+            </button>
+        `;
+
+        return console.error("Usuário não está logado");
+    }
+
+    text.innerHTML = "<h1>Perfil</h1>";
+
+    main.innerHTML = `
+        <h2>Seu nome: ${profileName[0]}</h2>
+    `;
+
+    others.innerHTML = `
+        <button class="logoutButton" onclick="cleanAll()">Deslogar</button>
+    `;
+}
+
 // Others
 const changeTheme = () => {
     if (text.classList.contains("light-mode")) {
@@ -449,36 +449,21 @@ const numberMask = (event) => {
         .replace(/(\..*)\./g, '$1');
 }
 
-const clean = () => {
-    localStorage.clear();
-    location.href = "/loja/web";
-}
+const estimatePrice = () => {
+    let price = 0;
 
-const displayProfile = () => {
-    text.innerHTML = "";
-    others.innerHTML = "";
-
-    if (profileName[0] === undefined) {
-        main.innerHTML = `
-            <h2>Você não está logado</h2>
-        `;
-
-        others.innerHTML = `
-            <button class="buyButton" onclick="changeHash('loading'); changeHash('login')">
-                Fazer login
-            </button>
-        `;
-
-        return console.error("Usuário não está logado");
+    if (cart && Array.isArray(cart)) {
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i] && cart[i].price) {
+                price += parseInt(cart[i].price.slice(2));
+            }
+        }
     }
 
-    text.innerHTML = "<h1>Perfil</h1>";
+    return price;
+}
 
-    main.innerHTML = `
-        <h2>Seu nome: ${profileName[0]}</h2>
-    `;
-
-    others.innerHTML = `
-        <button class="logoutButton" onclick="clean()">Deslogar</button>
-    `;
+const cleanAll = () => {
+    localStorage.clear();
+    location.href = "/";
 }

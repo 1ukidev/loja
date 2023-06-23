@@ -60,11 +60,17 @@
                     userEmail.push('$email');
                     localStorage.setItem('userEmail', JSON.stringify(userEmail));
 
-                    localStorage.setItem('nameHash', '$stored_hash_name');
-                    nameHash = '$stored_hash_name';
-                    
-                    changeHash('');
-                    alertify.success('Logado com sucesso!');
+                    emailHash = createSignature('$email', secretKey);
+                    if (emailHash) {
+                        localStorage.setItem('emailHash', emailHash);
+                        localStorage.setItem('nameHash', '$stored_hash_name');
+                        nameHash = '$stored_hash_name';
+                        changeHash('');
+                        alertify.success('Logado com sucesso!');
+                    } else {
+                        alertify.error('Hash do e-mail está inválido');
+                        setTimeout(() => { cleanAll(); }, 3000);
+                    }
                 </script>";
         } else {
             echo "<script>
