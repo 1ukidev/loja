@@ -1,4 +1,4 @@
 # Loja - Presente da Cegonha
-Projeto Web/Software da minha equipe.
+Implementação simples de uma loja voltada para o meio infantil.
 
 **Não é pensado para ser utilizado em produção.**
