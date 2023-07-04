@@ -17,7 +17,6 @@ pkgs.mkShell {
     echo
     echo "'mysql -u root -p < cegonha.sql' to create database in mysql"
     echo
-    export PS1="\n(loja) -> "
     php -S 0.0.0.0:8000 -t web/.
   '';
 }
