@@ -1,3 +1,6 @@
+CREATE DATABASE projeto;
+USE projeto;
+
 CREATE TABLE cegonha (
     id_user INT AUTO_INCREMENT NOT NULL,
     name_user VARCHAR(255) NOT NULL,
