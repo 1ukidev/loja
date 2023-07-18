@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "category": "Brinquedos",
+    "name": "Pato de borracha",
+    "img": "/img/0.png",
+    "price": "R$5"
+  },
+  {
+    "id": 1,
+    "category": "Enxoval",
+    "name": "Bebê",
+    "img": "/img/1.png",
+    "price": "R$5000"
+  },
+  {
+    "id": 2,
+    "category": "Higiene",
+    "name": "Escova",
+    "img": "/img/2.png",
+    "price": "R$10"
+  },
+  {
+    "id": 3,
+    "category": "Roupas",
+    "name": "Roupa",
+    "img": "/img/3.png",
+    "price": "R$25"
+  },
+  {
+    "id": 4,
+    "category": "Saúde",
+    "name": "Umidificador",
+    "img": "/img/4.png",
+    "price": "R$200"
+  },
+  {
+    "id": 5,
+    "category": "Brinquedos",
+    "name": "Carrinho",
+    "img": "/img/5.png",
+    "price": "R$50"
+  },
+  {
+    "id": 6,
+    "category": "Brinquedos",
+    "name": "Avião de brinquedo",
+    "img": "/img/6.png",
+    "price": "R$45"
+  },
+  {
+    "id": 7,
+    "category": "Higiene",
+    "name": "Shampoo Huggies",
+    "img": "/img/7.png",
+    "price": "R$40"
+  }
+]

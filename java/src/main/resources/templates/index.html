@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente da Cegonha</title>
+    <link rel="icon" type="image/png" href="img/0.png">
+    <link rel="stylesheet" th:href="@{/css/alertify.min.css}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" th:href="@{/css/default.min.css}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/jetbrains.css}">
+</head>
+
+<body class="dark-mode">
+    <div class="navbar">
+        <a class="title" href="/">
+            <i class="fa-solid fa-dragon fa-xl"></i>
+            Presente da Cegonha
+        </a>
+        <a onclick="changeHash('brinquedos')">
+            <i class="fa-solid fa-puzzle-piece"></i>
+            Brinquedos
+        </a>
+        <a onclick="changeHash('roupas')">
+            <i class="fa-solid fa-shirt"></i>
+            Roupas
+        </a>
+        <a onclick="changeHash('enxoval')">
+            <i class="fa-solid fa-baby-carriage"></i>
+            Enxoval
+        </a>
+        <a onclick="changeHash('higiene')">
+            <i class="fa-solid fa-soap"></i>
+            Higiene
+        </a>
+        <a onclick="changeHash('saude')">
+            <i class="fa-solid fa-briefcase-medical"></i>
+            Saúde
+        </a>
+        <a class="others" id="profile" onclick="changeHash('perfil')">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Perfil
+        </a>
+        <a class="others" id="login" onclick="changeHash('login')">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+        </a>
+        <a class="others" id="cart" onclick="changeHash('carrinho')">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Carrinho
+        </a>
+        <a class="others" id="theme" onclick="changeTheme()">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+            Tema
+        </a>
+    </div>
+
+    <div id="text" class="dark-mode"></div>
+
+    <div id="main"></div>
+    <div id="others"></div>
+
+    <script th:src="@{/js/alertify.min.js}" async></script>
+    <script th:src="@{/js/jquery.min.js}" async></script>
+    <script th:src="@{/js/crypto-js.min.js}" async></script>
+    <script th:src="@{/js/script.js}" async></script>
+</body>
+
+</html>
